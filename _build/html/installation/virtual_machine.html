@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Use G-OnRamp via Virtual Machine &#8212; G-OnRamp 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="G-OnRamp 0.1.0 documentation" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="use-g-onramp-via-virtual-machine">
+<h1>Use G-OnRamp via Virtual Machine<a class="headerlink" href="#use-g-onramp-via-virtual-machine" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Download and install Virtual Box =&gt; <a class="reference external" href="https://www.virtualbox.org">https://www.virtualbox.org</a></li>
+<li>Download our G-OnRamp image =&gt; <a class="reference external" href="https://wustl.box.com/s/nx5g5hfqbfkk0h7w4i1m6325s6fen7eu">https://wustl.box.com/s/nx5g5hfqbfkk0h7w4i1m6325s6fen7eu</a></li>
+</ol>
+</div>
+<div class="section" id="step-by-step-installation">
+<h2>Step by step installation<a class="headerlink" href="#step-by-step-installation" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Import Appliance</li>
+</ol>
+<blockquote>
+<div>First, start the VirtualBox and go to &#8220;File-&gt;Import Appliance&#8221;. Then choose the G-OnRamp image to import and click on &#8220;Continue&#8221;. Remember to check &#8220;Reinitialize the MAC address of all network cards&#8221; and then click on &#8220;Import&#8221;.</div></blockquote>
+<ol class="arabic simple" start="2">
+<li>Start the G-OnRamp VM instance</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>Start the G-OnRamp virtual machine in the VirtualBox.</li>
+<li>Open the terminal in your computer. Type the command line &#8220;ssh <a class="reference external" href="mailto:galaxy&#37;&#52;&#48;192&#46;168&#46;56&#46;11">galaxy<span>&#64;</span>192<span>&#46;</span>168<span>&#46;</span>56<span>&#46;</span>11</a>&#8220;</li>
+<li>Enter the password: 2016</li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li>Start the Galaxy server</li>
+</ol>
+<blockquote>
+<div><p>Go to the Galaxy directory (the folder named &#8220;galaxy&#8221;) by typing command line &#8220;cd galaxy&#8221;. Then start the server by typing command line &#8220;sh run.sh&#8221;. You can access to the Galaxy =&gt; <a class="reference external" href="http://192.168.56.11:8080/gonramp/">http://192.168.56.11:8080/gonramp/</a></p>
+<p>Login in to the Galaxy:</p>
+<ul class="simple">
+<li>Admin user:<ul>
+<li>username: galaxyadmin</li>
+<li>password: 12341234</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li>G-OnRamp workflow</li>
+</ol>
+<blockquote>
+<div>G-OnRamp workflow is shared in the shared Workflow. All the G-OnRamp tools are already installed in the &#8220;G-OnRamp&#8221; section in the tool panel.
+To run G-OnRamp, first import G-OnRamp workflow from shared Workflow, then upload your datasets, and finally run the G-OnRamp workflow.</div></blockquote>
+</div>
+<div class="section" id="modifying-galaxy-updates-or-customizations">
+<h2>Modifying Galaxy (updates or customizations)<a class="headerlink" href="#modifying-galaxy-updates-or-customizations" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>You can customize the current workflow by editing the workflow. If new tools are needed, login to the admin account and install the new tools.</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Use G-OnRamp via Virtual Machine</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#step-by-step-installation">Step by step installation</a></li>
+<li><a class="reference internal" href="#modifying-galaxy-updates-or-customizations">Modifying Galaxy (updates or customizations)</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/installation/virtual_machine.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Yating.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../_sources/installation/virtual_machine.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

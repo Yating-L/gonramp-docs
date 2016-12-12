@@ -1,0 +1,427 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Create G-OnRamp Virtual Machine Image &#8212; G-OnRamp 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="G-OnRamp 0.1.0 documentation" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="create-g-onramp-virtual-machine-image">
+<h1>Create G-OnRamp Virtual Machine Image<a class="headerlink" href="#create-g-onramp-virtual-machine-image" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Download and install Virtual Box =&gt; <a class="reference external" href="https://www.virtualbox.org">https://www.virtualbox.org</a></li>
+<li>Download Ubuntu Server 16.04.1 LTS =&gt; <a class="reference external" href="https://www.ubuntu.com/download/server">https://www.ubuntu.com/download/server</a></li>
+</ol>
+</div>
+<div class="section" id="step-by-step-instruction">
+<h2>Step by step instruction<a class="headerlink" href="#step-by-step-instruction" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-ubuntu-server-to-the-virtualbox">
+<h3>1. Install Ubuntu server to the VirtualBox<a class="headerlink" href="#install-ubuntu-server-to-the-virtualbox" title="Permalink to this headline">¶</a></h3>
+<p>See <a class="reference external" href="http://tecadmin.net/install-ubuntu-on-virtualbox/">How to Install Ubuntu on VirtualBox</a></p>
+<p>Additional settings when installing the Ubuntu</p>
+<ul class="simple">
+<li>Hostname: ubuntus</li>
+<li>Full name: galaxy</li>
+<li>User name: galaxy</li>
+<li>password: 2016</li>
+<li>Use entire disk and set up LVM</li>
+<li>No proxy configured</li>
+<li>Install security updates automatically</li>
+<li>Install LAMP server, PostgreSQL database, OpenSSH server</li>
+<li>Create new GRUB boot loader</li>
+</ul>
+</div>
+<div class="section" id="initial-ubuntu-setup">
+<h3>2. Initial Ubuntu setup<a class="headerlink" href="#initial-ubuntu-setup" title="Permalink to this headline">¶</a></h3>
+<p>Start the Ubuntu and login in to update the system.</p>
+<p>Update packages:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo apt-get update
+$ sudo apt-get -u upgrade
+</pre></div>
+</div>
+<p>Check for additional updates after reboot:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ reboot
+$ sudo apt-get update
+$ apt-get --with-new-pkgs upgrade
+$ reboot
+</pre></div>
+</div>
+<p>Install dependencies:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo apt-get install build-essential
+$ sudo apt-get install cmake
+$ sudo apt-get install zlib1g-dev
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-up-internet-host-only-adapter-used-to-connect-guest-vm-from-host-by-ssh">
+<h3>3. Set up internet host-only adapter (used to connect guest VM from host by ssh)<a class="headerlink" href="#set-up-internet-host-only-adapter-used-to-connect-guest-vm-from-host-by-ssh" title="Permalink to this headline">¶</a></h3>
+<p>Shutdown the virtual machine and add vboxnet0 to Adapter 2 as Host-only Adapter. Then restart the virtual machine.</p>
+<a class="reference internal image-reference" href="../_images/network.png"><img alt="add vboxnet0 to Adapter 2" class="align-center" src="../_images/network.png" style="width: 500px;" /></a>
+<p>On the host, type command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ifconfig
+</pre></div>
+</div>
+<p>Find the vboxnet0 ip:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">vboxnet0</span><span class="p">:</span> <span class="n">flags</span><span class="o">=</span><span class="mi">8943</span><span class="o">&lt;</span><span class="n">UP</span><span class="p">,</span><span class="n">BROADCAST</span><span class="p">,</span><span class="n">RUNNING</span><span class="p">,</span><span class="n">PROMISC</span><span class="p">,</span><span class="n">SIMPLEX</span><span class="p">,</span><span class="n">MULTICAST</span><span class="o">&gt;</span> <span class="n">mtu</span> <span class="mi">1500</span>
+<span class="n">ether</span> <span class="mi">0</span><span class="n">a</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="n">inet</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">56.1</span> <span class="n">netmask</span> <span class="mh">0xffffff00</span> <span class="n">broadcast</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">56.255</span>
+</pre></div>
+</div>
+<p>On the Ubuntu guest, list interfaces by typing the command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ip addr
+</pre></div>
+</div>
+<p>You should see three interfaces like lo, enp0s3, enp0s8. We will use the third.</p>
+<p>Edit the interfaces file by:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd /etc/network/interfaces
+</pre></div>
+</div>
+<p>Add following enp0s8 configuration to the file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">auto</span> <span class="n">enp0s8</span>
+<span class="n">iface</span> <span class="n">enp0s8</span> <span class="n">inet</span> <span class="n">static</span>
+<span class="n">address</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">56.11</span>
+<span class="n">netmask</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span>
+</pre></div>
+</div>
+<p>Then activate the interface:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo ifup enp0s8
+</pre></div>
+</div>
+<p>Check if enp0s8 got correct address. You should see your ip by typing:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ip addr show enp0s8
+ ...
+inet 192.168.56.11/24 brd 192.168.56.255 scope global secondary enp0s8
+</pre></div>
+</div>
+<p>If not correct, you may run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo ifdown enp0s8
+$ sudo ifup enp0s8
+$ reboot
+</pre></div>
+</div>
+<p>Now you can access to Ubuntu guest through host by:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ssh galaxy@192.168.56.11
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-galaxy">
+<h3>4. Install galaxy<a class="headerlink" href="#install-galaxy" title="Permalink to this headline">¶</a></h3>
+<p>Galaxy requires a few things to run: a virtualenv, configuration files and dependent python modules. Starting the server at the first time will set these thing up.</p>
+<p>Download Galaxy 16.07:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git clone -b release_16.07 https://github.com/galaxyproject/galaxy.git
+</pre></div>
+</div>
+<p>Install python:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo apt-get install python
+</pre></div>
+</div>
+<p>Run Galaxy:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd galaxy
+$ sh run.sh
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-up-proxy">
+<h3>5. Set up proxy<a class="headerlink" href="#set-up-proxy" title="Permalink to this headline">¶</a></h3>
+<p>Set up the proxy to allow access to the Galaxy from the Browsers on the host.</p>
+<p>Enable proxy modules for apache:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ a2enmod proxy proxy_ajp proxy_http rewrite deflate headers proxy_balancer proxy_connect proxy_html
+$ service apache2 restart
+</pre></div>
+</div>
+<p>Make a new web server config file for Galaxy:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd /etc/apache2/sites-available/
+$ cp 000-default.conf 001-galaxy.conf
+$ sudo vim 001-galaxy.conf
+</pre></div>
+</div>
+<p>Add the following lines between &lt;VirtualHost&gt;&lt;/VirtualHost&gt; to /etc/apache2/sites-available/001-galaxy.conf:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&lt;Proxy *&gt;
+    Order deny,allow
+    Allow from all
+&lt;/Proxy&gt;
+ProxyPreserveHost On
+&lt;Location &quot;/gonramp&quot;&gt;
+    ProxyPass &quot;http://192.168.56.11:8080/&quot;
+    ProxyPassReverse &quot;http://192.168.56.11:8080/&quot;
+&lt;/location&gt;
+RewriteEngine on
+RewriteRule ^/gonramp$ /gonramp/ [R]
+RewriteRule ^/gonramp/static/style/(.*) /home/galaxy/galaxy/static/june_2007_style/blue/$1 [L]
+RewriteRule ^/gonramp/static/scripts/(.*) /home/galaxy/galaxy/static/scripts/packed/$1 [L]
+RewriteRule ^/gonramp/static/(.*) /home/galaxy/galaxy/static/$1 [L]
+RewriteRule ^/gonramp/favicon.ico /home/galaxy/galaxy/static/favicon.ico [L]
+RewriteRule ^/gonramp/robots.txt /home/galaxy/galaxy/static/robots.txt [L]
+RewriteRule ^/gonramp(.*) http://192.168.56.11:8080$1 [P]
+</pre></div>
+</div>
+<p>Enable the new site, disable the default site and reload the apache:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ a2ensite 001-galaxy.conf
+$ a2dissite 000-default.conf
+$ service apache2 reload
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-up-galaxy">
+<h3>6. Set up Galaxy<a class="headerlink" href="#set-up-galaxy" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="set-proxy">
+<h4>Set proxy<a class="headerlink" href="#set-proxy" title="Permalink to this headline">¶</a></h4>
+<p>Galaxy application needs to be aware that it is running with a prefix (for generating URLs in dynamic pages). This is accomplished by configuring a Paste proxy-prefix filter in the [app:main] section of config/galaxy.ini and restarting Galaxy:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">server</span><span class="p">:</span><span class="n">main</span><span class="p">]</span>
+  <span class="n">host</span> <span class="o">=</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">56.11</span>
+<span class="p">[</span><span class="nb">filter</span><span class="p">:</span><span class="n">proxy</span><span class="o">-</span><span class="n">prefix</span><span class="p">]</span>
+  <span class="n">use</span> <span class="o">=</span> <span class="n">egg</span><span class="p">:</span><span class="n">PasteDeploy</span><span class="c1">#prefix</span>
+  <span class="n">prefix</span> <span class="o">=</span> <span class="o">/</span><span class="n">gonramp</span>
+<span class="p">[</span><span class="n">app</span><span class="p">:</span><span class="n">main</span><span class="p">]</span>
+  <span class="nb">filter</span><span class="o">-</span><span class="k">with</span> <span class="o">=</span> <span class="n">proxy</span><span class="o">-</span><span class="n">prefix</span>
+  <span class="n">cookie_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">gonramp</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="become-an-admin">
+<h4>Become an Admin<a class="headerlink" href="#become-an-admin" title="Permalink to this headline">¶</a></h4>
+<p>In order to install tools, you have to become administrator for your Galaxy instance. First start the server, go to <a class="reference external" href="http://192.168.56.11:8080/gonramp">http://192.168.56.11:8080/gonramp</a>, and register as a new user with your email address.</p>
+<p>Go to galaxy folder and find a sub-folder called config. Add a new file named galaxy.init in the config folder. You can copy the content of galaxy.init.sample into galaxy.init. In galaxy.init, search for the line containing “admin_users”. Add your user email address to admin users. (Replace None to your email address). You can add multiple admin users by appending another email and separating them with a comma:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># this should be a comma-separated list of valid Galaxy users</span>
+<span class="n">admin_users</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-up-conda">
+<h4>Set up conda<a class="headerlink" href="#set-up-conda" title="Permalink to this headline">¶</a></h4>
+<p>In galaxy.init, uncomment and edit the following conda configuration:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">conda_ensure_channels</span> <span class="o">=</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="p">,</span><span class="n">r</span><span class="p">,</span><span class="n">bioconda</span><span class="p">,</span><span class="n">iuc</span>
+<span class="n">conda_auto_install</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">conda_auto_init</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="connect-your-galaxy-to-the-test-tool-shed">
+<h4>Connect your Galaxy to the test tool shed<a class="headerlink" href="#connect-your-galaxy-to-the-test-tool-shed" title="Permalink to this headline">¶</a></h4>
+<p>Galaxy is connected to the Main Tool Shed by default. Since some tools in G-OnRamp workflow are in the Test Tool Shed, you need to connect to the Test Tool Shed by modifying the “tool_sheds_conf.xml” in config folder:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span># Copy the “tool_sheds_conf.xml.sample” and rename it to “tool_sheds_conf.xml”
+$ cd /home/galaxy/config
+$ cp tool_sheds_conf.xml.sample tool_sheds_conf.xml
+# Open the file
+$ vim tool_sheds_conf.xml
+</pre></div>
+</div>
+<p>Uncomment the lines for the Test Tool Shed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;tool_sheds&gt;
+  &lt;tool_shed name=&quot;Galaxy Main Tool Shed&quot; url=&quot;https://toolshed.g2.bx.psu.edu/&quot;/&gt;
+&lt;!-- Test Tool Shed should be used only for testing purposes.
+  &lt;tool_shed name=&quot;Galaxy Test Tool Shed&quot; url=&quot;https://testtoolshed.g2.bx.psu.edu/&quot;/&gt;
+--&gt;
+&lt;/tool_sheds&gt;
+</pre></div>
+</div>
+<p>To:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;tool_sheds&gt;
+  &lt;tool_shed name=&quot;Galaxy Main Tool Shed&quot; url=&quot;https://toolshed.g2.bx.psu.edu/&quot;/&gt;
+  &lt;tool_shed name=&quot;Galaxy Test Tool Shed&quot; url=&quot;https://testtoolshed.g2.bx.psu.edu/&quot;/&gt;
+&lt;/tool_sheds&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-necessary-datatypes">
+<h4>Add necessary datatypes<a class="headerlink" href="#add-necessary-datatypes" title="Permalink to this headline">¶</a></h4>
+<p>Copy the “datatypes_conf.xml.sample” and rename it to “datatypes_conf.xml”.
+Add the line below in between &lt;registration&gt;&lt;/registration&gt;:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">datatype</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;psl&quot;</span> <span class="n">subclass</span><span class="o">=</span><span class="s2">&quot;True&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;galaxy.datatypes.tabular:Tabular&quot;</span> <span class="o">/&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="other-files-should-be-ready-copy-from-sample">
+<h4>Other files should be ready (copy from .sample)<a class="headerlink" href="#other-files-should-be-ready-copy-from-sample" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cp dependency_resolvers_conf.xml.sample dependency_resolvers_conf.xml
+</pre></div>
+</div>
+<p>Restart the server after you modified the configuration files. You can hit Ctrl-c to stop the server and then start again.</p>
+</div>
+</div>
+<div class="section" id="install-g-onramp-tools">
+<h3>7. Install G-OnRamp tools<a class="headerlink" href="#install-g-onramp-tools" title="Permalink to this headline">¶</a></h3>
+<p>Go to Admin page, and click on Search Tool Shed. Click on the Tool Sheds to search and install. You can add all G-OnRamp tools in a separate panel section by adding a new tool panel section when you install the first tool and then add all the rest tools in the same panel.</p>
+<div class="section" id="click-on-galaxy-main-tool-shed-to-install">
+<h4>Click on Galaxy Main Tool Shed to install<a class="headerlink" href="#click-on-galaxy-main-tool-shed-to-install" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ncbi_blast_plus (by devteam)</li>
+<li>Augustus</li>
+<li>HISAT2</li>
+<li>StringTie (1.1.0)</li>
+<li>blastXmlToPsl</li>
+<li>TrfBig</li>
+<li>pslToBed</li>
+<li>bamtobigwig</li>
+<li>hubarchivecreator</li>
+<li>multi_fasta_glimmer_hmm</li>
+</ul>
+</div>
+<div class="section" id="click-on-galaxy-test-tool-shed-to-install">
+<h4>Click on Galaxy Test Tool Shed to install<a class="headerlink" href="#click-on-galaxy-test-tool-shed-to-install" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>snap</li>
+</ul>
+</div>
+<div class="section" id="tools-need-advanced-configuration">
+<h4>Tools need advanced configuration<a class="headerlink" href="#tools-need-advanced-configuration" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li>multi_fasta_glimmer_hmm</li>
+</ol>
+<p>Make a Dependencies folder in &#8220;/home/galaxy&#8221; and download Glimmer3 inside the folder by:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ mkdir Dependencies
+$ cd ~/Dependencies
+$ wget ftp://ccb.jhu.edu/pub/software/glimmerhmm/GlimmerHMM-3.0.4.tar.gz
+</pre></div>
+</div>
+<p>Rename glimmerhmm executable file (glimmerhmm_linux_x86_64) to glimmerhmm and then add glimmerhmm to the path (in .bashrc).</p>
+<p>You also need to use a trained organism by adding them as reference data in Galaxy:</p>
+<p>Add the glimmer_hmm_trained_dir data table to tool_data_table_conf.xml in $GALAXY_ROOT/config/:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&lt;!-- glimmer_hmm trained_dir --&gt;
+&lt;table name=&quot;glimmer_hmm_trained_dir&quot; comment_char=&quot;#&quot;&gt;
+  &lt;columns&gt;value, name, path&lt;/columns&gt;
+  &lt;file path=&quot;tool-data/glimmer_hmm.loc&quot; /&gt;
+&lt;/table&gt;
+</pre></div>
+</div>
+<p>Add the glimmer_hmm.loc file referencing your trained organism, in tool-data. Uncomment the species and add the path to trained_dir.</p>
+<ol class="arabic simple" start="2">
+<li>TrfBig</li>
+</ol>
+<p>Because trf executable file is not renamed to trf successfully, so it needs to be renamed manually.</p>
+<p>Go to installation path of trf:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd /home/galaxy/galaxy/database/dependencies/trf/4.07b/rmarenco/trfbig/e45bd0ffc1a4/bin
+$ mv trf407b.linux64 trf
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>Bam to Bigwig</li>
+</ol>
+<p>libstdc++.so.6: version <a href="#id1"><span class="problematic" id="id2">`</span></a>GLIBCXX_3.4.20&#8217; not found, maybe because it is not using the right libstdc++.so.6. Delete the installed libstdc++.so.6 in the tool dependencies, so that the tool can use the system version of libstdc++.so.6:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd /home/galaxy/galaxy/database/dependencies/ucsc_tools/312/iuc/package_ucsc_tools_312/2d6bafd63401/lib/
+$ rm libstdc++.so.6
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Create G-OnRamp Virtual Machine Image</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#step-by-step-instruction">Step by step instruction</a><ul>
+<li><a class="reference internal" href="#install-ubuntu-server-to-the-virtualbox">1. Install Ubuntu server to the VirtualBox</a></li>
+<li><a class="reference internal" href="#initial-ubuntu-setup">2. Initial Ubuntu setup</a></li>
+<li><a class="reference internal" href="#set-up-internet-host-only-adapter-used-to-connect-guest-vm-from-host-by-ssh">3. Set up internet host-only adapter (used to connect guest VM from host by ssh)</a></li>
+<li><a class="reference internal" href="#install-galaxy">4. Install galaxy</a></li>
+<li><a class="reference internal" href="#set-up-proxy">5. Set up proxy</a></li>
+<li><a class="reference internal" href="#set-up-galaxy">6. Set up Galaxy</a><ul>
+<li><a class="reference internal" href="#set-proxy">Set proxy</a></li>
+<li><a class="reference internal" href="#become-an-admin">Become an Admin</a></li>
+<li><a class="reference internal" href="#set-up-conda">Set up conda</a></li>
+<li><a class="reference internal" href="#connect-your-galaxy-to-the-test-tool-shed">Connect your Galaxy to the test tool shed</a></li>
+<li><a class="reference internal" href="#add-necessary-datatypes">Add necessary datatypes</a></li>
+<li><a class="reference internal" href="#other-files-should-be-ready-copy-from-sample">Other files should be ready (copy from .sample)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#install-g-onramp-tools">7. Install G-OnRamp tools</a><ul>
+<li><a class="reference internal" href="#click-on-galaxy-main-tool-shed-to-install">Click on Galaxy Main Tool Shed to install</a></li>
+<li><a class="reference internal" href="#click-on-galaxy-test-tool-shed-to-install">Click on Galaxy Test Tool Shed to install</a></li>
+<li><a class="reference internal" href="#tools-need-advanced-configuration">Tools need advanced configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/installation/create_virtual_image.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Yating.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../_sources/installation/create_virtual_image.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
