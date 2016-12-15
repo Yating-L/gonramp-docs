@@ -4,17 +4,17 @@
    contain the root `toctree` directive.
 
 
-
-
 Welcome to G-OnRamp's documentation!
 ====================================
-.. toctree::
-   :numbered:
-   :maxdepth: 3
-   :titlesonly:
 
-   installation 
+.. toctree::
+   :maxdepth: 2
+   :numbered:
+   
+   installation
    tutorials
+    
+    
 
 
 Indices and tables

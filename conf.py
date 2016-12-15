@@ -15,10 +15,10 @@
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+
+import os
+import sys
+sys.path.insert(0, os.path.abspath('.'))
 
 # -- General configuration ------------------------------------------------
 
@@ -29,7 +29,9 @@
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinxcontrib.fulltoc']
+
+#extensions = ['fulltoc']
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -129,13 +131,13 @@ html_theme_options = {
     'link': '#0FBE7C',
     'link_hover': '#0FBE7C',
     'sidebar_header': '#222222',
-    'sidebar_link': '#0FBE7C',
+    'sidebar_link': '#666666',
     'sidebar_text': '#666666',
     'sidebar_link_underscore': '1px solid #f2f2f2',
     'sidebar_search_button': '#0FBE7C',
     'font_size': '16px',
-    'footnote_bg': '#333333'
-
+    'footnote_bg': '#333333',
+    
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
@@ -185,7 +187,7 @@ html_static_path = ['_static']
 
 # Custom sidebar templates, maps document names to template names.
 #
-# html_sidebars = {}
+html_sidebars = {'**': ['globaltoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html'],}
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
