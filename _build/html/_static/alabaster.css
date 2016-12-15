@@ -160,7 +160,7 @@ div.sphinxsidebarwrapper p.blurb {
 div.sphinxsidebar h3,
 div.sphinxsidebar h4 {
     font-family: 'Garamond', 'Georgia', serif;
-    color: #0FBE7C;
+    color: #222222;
     font-size: 24px;
     font-weight: normal;
     margin: 0 0 5px 0;
@@ -183,7 +183,7 @@ div.sphinxsidebar h3 a:hover {
 }
 
 div.sphinxsidebar p {
-    color: #0FBE7C;
+    color: #666666;
     margin: 10px 0;
 }
 
@@ -210,8 +210,8 @@ div.sphinxsidebar input {
 div.sphinxsidebar hr {
     border: none;
     height: 1px;
-    color: #0FBE7C;
-    background: #0FBE7C;
+    color: #AAA;
+    background: #AAA;
 
     text-align: left;
     margin-left: 0;
@@ -226,7 +226,7 @@ a {
 }
 
 a:hover {
-    color: #6D4100;
+    color: #0FBE7C;
     text-decoration: underline;
 }
 
@@ -256,7 +256,7 @@ a.headerlink {
 }
 
 a.headerlink:hover {
-    color: #0FBE7C;
+    color: #444;
     background: #EAEAEA;
 }
 
@@ -267,7 +267,7 @@ div.body p, div.body dd, div.body li {
 div.admonition {
     margin: 20px 0px;
     padding: 10px 30px;
-    background-color: #0FBE7C;
+    background-color: #EEE;
     border: 1px solid #CCC;
 }
 
@@ -334,32 +334,32 @@ div.attention {
 }
 
 div.important {
-    background-color: #0FBE7C;
+    background-color: #EEE;
     border: 1px solid #CCC;
 }
 
 div.note {
-    background-color: #0FBE7C;
+    background-color: #EEE;
     border: 1px solid #CCC;
 }
 
 div.tip {
-    background-color: #0FBE7C;
+    background-color: #EEE;
     border: 1px solid #CCC;
 }
 
 div.hint {
-    background-color: #0FBE7C;
+    background-color: #EEE;
     border: 1px solid #CCC;
 }
 
 div.seealso {
-    background-color: #0FBE7C;
+    background-color: #EEE;
     border: 1px solid #CCC;
 }
 
 div.topic {
-    background-color: #0FBE7C;
+    background-color: #EEE;
 }
 
 p.admonition-title {
@@ -394,16 +394,16 @@ tt.descname, code.descname {
 }
 
 img.screenshot {
-    -moz-box-shadow: 2px 2px 4px #0FBE7C;
-    -webkit-box-shadow: 2px 2px 4px #0FBE7C;
-    box-shadow: 2px 2px 4px #0FBE7C;
+    -moz-box-shadow: 2px 2px 4px #EEE;
+    -webkit-box-shadow: 2px 2px 4px #EEE;
+    box-shadow: 2px 2px 4px #EEE;
 }
 
 table.docutils {
     border: 1px solid #888;
-    -moz-box-shadow: 2px 2px 4px #0FBE7C;
-    -webkit-box-shadow: 2px 2px 4px #0FBE7C;
-    box-shadow: 2px 2px 4px #0FBE7C;
+    -moz-box-shadow: 2px 2px 4px #EEE;
+    -webkit-box-shadow: 2px 2px 4px #EEE;
+    box-shadow: 2px 2px 4px #EEE;
 }
 
 table.docutils td, table.docutils th {
@@ -421,8 +421,8 @@ table.field-list, table.footnote {
 table.footnote {
     margin: 15px 0;
     width: 100%;
-    border: 1px solid #0FBE7C;
-    background: #FDFDFD;
+    border: 1px solid #EEE;
+    background: #333333;
     font-size: 0.9em;
 }
 
@@ -473,7 +473,7 @@ ul, ol {
 }
 
 pre {
-    background: #0FBE7C;
+    background: #EEE;
     padding: 7px 30px;
     margin: 15px 0px;
     line-height: 1.3em;
@@ -515,7 +515,7 @@ a.image-reference, a.image-reference:hover {
 }
 
 a.reference:hover {
-    border-bottom: 1px solid #6D4100;
+    border-bottom: 1px solid #0FBE7C;
 }
 
 a.footnote-reference {
@@ -526,7 +526,7 @@ a.footnote-reference {
 }
 
 a.footnote-reference:hover {
-    border-bottom: 1px solid #6D4100;
+    border-bottom: 1px solid #0FBE7C;
 }
 
 a:hover tt, a:hover code {
@@ -622,7 +622,7 @@ a:hover tt, a:hover code {
     }
 
     div.sphinxsidebar a {
-        color: #0FBE7C;
+        color: #AAA;
     }
 
     div.sphinxsidebar p.logo {

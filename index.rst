@@ -12,8 +12,6 @@ Welcome to G-OnRamp's documentation!
    :numbered:
    :maxdepth: 3
    :titlesonly:
-   :caption: Table of Contents
-   
 
    installation 
    tutorials

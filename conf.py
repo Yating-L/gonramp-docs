@@ -29,7 +29,7 @@
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = []
+extensions = ['sphinxcontrib.fulltoc']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -127,13 +127,14 @@ html_theme = 'alabaster'
 #
 html_theme_options = {
     'link': '#0FBE7C',
-    'sidebar_text': '#0FBE7C',
+    'link_hover': '#0FBE7C',
+    'sidebar_header': '#222222',
+    'sidebar_link': '#0FBE7C',
+    'sidebar_text': '#666666',
     'sidebar_link_underscore': '1px solid #f2f2f2',
     'sidebar_search_button': '#0FBE7C',
     'font_size': '16px',
-    'gray_1': '#0FBE7C',
-    'gray_2': '#0FBE7C',
-    'gray_3': '#0FBE7C',
+    'footnote_bg': '#333333'
 
 }
 
