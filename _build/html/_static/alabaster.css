@@ -56,7 +56,7 @@
 
 body {
     font-family: 'goudy old style', 'minion pro', 'bell mt', Georgia, 'Hiragino Mincho Pro', serif;
-    font-size: 17px;
+    font-size: 16px;
     background-color: #fff;
     color: #000;
     margin: 0;
@@ -122,13 +122,13 @@ div.relations {
 
 
 div.sphinxsidebar a {
-    color: #444;
+    color: #0FBE7C;
     text-decoration: none;
-    border-bottom: 1px dotted #999;
+    border-bottom: 1px dotted 1px solid #f2f2f2;
 }
 
 div.sphinxsidebar a:hover {
-    border-bottom: 1px solid #999;
+    border-bottom: 1px solid 1px solid #f2f2f2;
 }
 
 div.sphinxsidebarwrapper {
@@ -160,7 +160,7 @@ div.sphinxsidebarwrapper p.blurb {
 div.sphinxsidebar h3,
 div.sphinxsidebar h4 {
     font-family: 'Garamond', 'Georgia', serif;
-    color: #444;
+    color: #0FBE7C;
     font-size: 24px;
     font-weight: normal;
     margin: 0 0 5px 0;
@@ -172,7 +172,7 @@ div.sphinxsidebar h4 {
 }
 
 div.sphinxsidebar h3 a {
-    color: #444;
+    color: #0FBE7C;
 }
 
 div.sphinxsidebar p.logo a,
@@ -183,7 +183,7 @@ div.sphinxsidebar h3 a:hover {
 }
 
 div.sphinxsidebar p {
-    color: #555;
+    color: #0FBE7C;
     margin: 10px 0;
 }
 
@@ -202,7 +202,7 @@ div.sphinxsidebar ul li.toctree-l2 > a {
 }
 
 div.sphinxsidebar input {
-    border: 1px solid #CCC;
+    border: 1px solid #0FBE7C;
     font-family: 'goudy old style', 'minion pro', 'bell mt', Georgia, 'Hiragino Mincho Pro', serif;
     font-size: 1em;
 }
@@ -210,8 +210,8 @@ div.sphinxsidebar input {
 div.sphinxsidebar hr {
     border: none;
     height: 1px;
-    color: #AAA;
-    background: #AAA;
+    color: #0FBE7C;
+    background: #0FBE7C;
 
     text-align: left;
     margin-left: 0;
@@ -221,7 +221,7 @@ div.sphinxsidebar hr {
 /* -- body styles ----------------------------------------------------------- */
 
 a {
-    color: #004B6B;
+    color: #0FBE7C;
     text-decoration: underline;
 }
 
@@ -256,7 +256,7 @@ a.headerlink {
 }
 
 a.headerlink:hover {
-    color: #444;
+    color: #0FBE7C;
     background: #EAEAEA;
 }
 
@@ -267,7 +267,7 @@ div.body p, div.body dd, div.body li {
 div.admonition {
     margin: 20px 0px;
     padding: 10px 30px;
-    background-color: #EEE;
+    background-color: #0FBE7C;
     border: 1px solid #CCC;
 }
 
@@ -334,32 +334,32 @@ div.attention {
 }
 
 div.important {
-    background-color: #EEE;
+    background-color: #0FBE7C;
     border: 1px solid #CCC;
 }
 
 div.note {
-    background-color: #EEE;
+    background-color: #0FBE7C;
     border: 1px solid #CCC;
 }
 
 div.tip {
-    background-color: #EEE;
+    background-color: #0FBE7C;
     border: 1px solid #CCC;
 }
 
 div.hint {
-    background-color: #EEE;
+    background-color: #0FBE7C;
     border: 1px solid #CCC;
 }
 
 div.seealso {
-    background-color: #EEE;
+    background-color: #0FBE7C;
     border: 1px solid #CCC;
 }
 
 div.topic {
-    background-color: #EEE;
+    background-color: #0FBE7C;
 }
 
 p.admonition-title {
@@ -394,16 +394,16 @@ tt.descname, code.descname {
 }
 
 img.screenshot {
-    -moz-box-shadow: 2px 2px 4px #EEE;
-    -webkit-box-shadow: 2px 2px 4px #EEE;
-    box-shadow: 2px 2px 4px #EEE;
+    -moz-box-shadow: 2px 2px 4px #0FBE7C;
+    -webkit-box-shadow: 2px 2px 4px #0FBE7C;
+    box-shadow: 2px 2px 4px #0FBE7C;
 }
 
 table.docutils {
     border: 1px solid #888;
-    -moz-box-shadow: 2px 2px 4px #EEE;
-    -webkit-box-shadow: 2px 2px 4px #EEE;
-    box-shadow: 2px 2px 4px #EEE;
+    -moz-box-shadow: 2px 2px 4px #0FBE7C;
+    -webkit-box-shadow: 2px 2px 4px #0FBE7C;
+    box-shadow: 2px 2px 4px #0FBE7C;
 }
 
 table.docutils td, table.docutils th {
@@ -421,7 +421,7 @@ table.field-list, table.footnote {
 table.footnote {
     margin: 15px 0;
     width: 100%;
-    border: 1px solid #EEE;
+    border: 1px solid #0FBE7C;
     background: #FDFDFD;
     font-size: 0.9em;
 }
@@ -473,7 +473,7 @@ ul, ol {
 }
 
 pre {
-    background: #EEE;
+    background: #0FBE7C;
     padding: 7px 30px;
     margin: 15px 0px;
     line-height: 1.3em;
@@ -506,7 +506,7 @@ tt.xref, code.xref, a tt {
 
 a.reference {
     text-decoration: none;
-    border-bottom: 1px dotted #004B6B;
+    border-bottom: 1px dotted #0FBE7C;
 }
 
 /* Don't put an underline on images */
@@ -522,7 +522,7 @@ a.footnote-reference {
     text-decoration: none;
     font-size: 0.7em;
     vertical-align: top;
-    border-bottom: 1px dotted #004B6B;
+    border-bottom: 1px dotted #0FBE7C;
 }
 
 a.footnote-reference:hover {
@@ -622,7 +622,7 @@ a:hover tt, a:hover code {
     }
 
     div.sphinxsidebar a {
-        color: #AAA;
+        color: #0FBE7C;
     }
 
     div.sphinxsidebar p.logo {

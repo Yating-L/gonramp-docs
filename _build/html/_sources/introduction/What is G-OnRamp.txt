@@ -1,0 +1,11 @@
+What is G-OnRamp
+================
+
+G-OnRamp goals
+--------------
+The G-OnRamp project combines two successful and long-running projects—the `Genomics Education Partnership (GEP) <https://gep.wustl.edu>`_ and the `Galaxy Project <https://galaxyproject.org>`_. 
+
+It aims to create an integrated, web-based, and scalable environment that enables biologists to utilize large genomic datasets for the interactive annotation of any eukaryotic genome. 
+
+It will also serve as a platform to introduce undergraduates to “big data,” to train them in one type of analysis (genome annotation) that is based on using large datasets. We hope that this introduction will increase the students’ confidence in working with computers, and lead them to seek out additional opportunities for using big data in problem solving, particularly in biomedical analyses.
+

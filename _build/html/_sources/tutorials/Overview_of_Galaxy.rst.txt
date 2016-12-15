@@ -1,0 +1,14 @@
+Overview of Galaxy
+========================
+
+Because G-OnRamp is based on the Galaxy platform, the first step to learning how to use G-OnRamp is to acquire some basic familiarity with Galaxy. The “Overview of Galaxy” presentation in the Learning Materials section will give you the necessary basic information about Galaxy. The two screencasts from Galaxy linked here provide an introduction to getting data and comparing genomics features. If you want to learn more about Galaxy, visit the `Learn Galaxy <https://wiki.galaxyproject.org/Learn>`_ page on the Galaxy Wiki.
+
+.. raw:: html
+
+   <iframe src="https://player.vimeo.com/video/185523444?color=0FBE7C&portrait=0" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+.. raw:: html
+
+   <iframe src="https://player.vimeo.com/video/185538367?color=0FBE7C&portrait=0" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+

@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.3.1. G-OnRamp Tools &#8212; G-OnRamp 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.4.1. Workflows" href="Workflows.html" />
+    <link rel="prev" title="2.2.1. G-OnRamp Features" href="Features.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="g-onramp-tools">
+<h1>2.3.1. G-OnRamp Tools<a class="headerlink" href="#g-onramp-tools" title="Permalink to this headline">¶</a></h1>
+<p>Below is a glossary of the tools that we use in the Homology, RNA-Seq, Repeat Regions, and Gene Predictions sub-workflows:</p>
+<div class="section" id="homology">
+<h2>2.3.1.1. Homology<a class="headerlink" href="#homology" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><strong>NCBI BLAST+ makeblastdb</strong>: creates BLAST database from one or more FASTA files and/or BLAST databases.</li>
+<li><strong>NCBI BLAST+ tblastn</strong>: searches a translated nucleotide database using a protein query. Note that one should use the makeblastdb tool to convert the genome assembly into a BLAST database prior to performing a tblastn search.</li>
+<li><strong>blastXmlToPsl</strong>: converts BLAST output in XML format to the PSL format.</li>
+<li><strong>pslToBed</strong>: transforms a file in PSL format to the BED format.</li>
+</ul>
+</div>
+<div class="section" id="rna-seq">
+<h2>2.3.1.2. RNA-seq<a class="headerlink" href="#rna-seq" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><strong>HISAT</strong>:  a fast and sensitive spliced alignment program for mapping RNA-seq reads. See the HISAT2 website for more information.</li>
+<li><strong>StringTie</strong>: a fast and highly efficient assembler of RNA-Seq alignments into potential transcripts. See the StringTie website for more information.</li>
+<li><strong>Convert Bam to BigWig</strong>: this tool calculates the alignment coverage from a BAM alignment file and converts the result into a BigWig file.</li>
+<li><strong>Regtools</strong>: extracts splice junctions from an RNA-Seq BAM file. For more information, check the link: <a class="reference external" href="https://regtools.readthedocs.io/en/latest/">https://regtools.readthedocs.io/en/latest/</a></li>
+</ul>
+</div>
+<div class="section" id="repeat-regions">
+<h2>2.3.1.3. Repeat regions<a class="headerlink" href="#repeat-regions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><strong>TrfBig</strong>: partitions a genome assembly into smaller chunks and then uses Tandem Repeats Finder (TRF) to identify tandem repeats within each chunk</li>
+</ul>
+</div>
+<div class="section" id="gene-predictors">
+<h2>2.3.1.4. Gene predictors<a class="headerlink" href="#gene-predictors" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><strong>Augustus</strong>: a gene prediction program for eukaryotes written by Mario Stanke and Oliver Keller. For more information check the link: <a class="reference external" href="http://bioinf.uni-greifswald.de/augustus/">http://bioinf.uni-greifswald.de/augustus/</a></li>
+<li><strong>Multi_Fasta_GlimmerHmm</strong>: a gene finder based on a Generalized Hidden Markov Model (GHMM). For more information check the link: <a class="reference external" href="https://ccb.jhu.edu/software/glimmerhmm/">https://ccb.jhu.edu/software/glimmerhmm/</a></li>
+<li><strong>SNAP</strong>: is a general purpose gene finding program suitable for both eukaryotic and prokaryotic genomes. SNAP is an acronym for Semi-HMM-based Nucleic Acid Parser. For more information, check the link: <a class="reference external" href="http://korflab.ucdavis.edu/software.html">http://korflab.ucdavis.edu/software.html</a></li>
+</ul>
+</div>
+<div class="section" id="create-ucsc-genome-browser-assembly-hubs">
+<h2>2.3.1.5. Create UCSC Genome Browser assembly hubs<a class="headerlink" href="#create-ucsc-genome-browser-assembly-hubs" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><strong>Hub Archive Creator</strong>: this Galaxy tool converts a genome assembly and the results produced by different bioinformatics tools into an Assembly Hub so that the assembly and its evidence tracks can be visualized on the UCSC Genome Browser. For more information, check the links below:</li>
+</ul>
+<p><a class="reference external" href="https://github.com/goeckslab/hub-archive-creator">https://github.com/goeckslab/hub-archive-creator</a>
+<a class="reference external" href="https://github.com/goeckslab/hub-archive-creator">http://genome.ucsc.edu/goldenPath/help/hubQuickStartAssembly.html</a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">2.3.1. G-OnRamp Tools</a><ul>
+<li><a class="reference internal" href="#homology">2.3.1.1. Homology</a></li>
+<li><a class="reference internal" href="#rna-seq">2.3.1.2. RNA-seq</a></li>
+<li><a class="reference internal" href="#repeat-regions">2.3.1.3. Repeat regions</a></li>
+<li><a class="reference internal" href="#gene-predictors">2.3.1.4. Gene predictors</a></li>
+<li><a class="reference internal" href="#create-ucsc-genome-browser-assembly-hubs">2.3.1.5. Create UCSC Genome Browser assembly hubs</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../introduction.html">2. Introduction of G-OnRamp</a><ul>
+      <li>Previous: <a href="Features.html" title="previous chapter">2.2.1. G-OnRamp Features</a></li>
+      <li>Next: <a href="Workflows.html" title="next chapter">2.4.1. Workflows</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/introduction/Tools.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Yating Liu.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../_sources/introduction/Tools.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

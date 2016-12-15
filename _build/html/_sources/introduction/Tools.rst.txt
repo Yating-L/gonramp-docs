@@ -1,0 +1,39 @@
+G-OnRamp Tools
+==============
+
+Below is a glossary of the tools that we use in the Homology, RNA-Seq, Repeat Regions, and Gene Predictions sub-workflows:
+
+Homology
+-------
+
+* **NCBI BLAST+ makeblastdb**: creates BLAST database from one or more FASTA files and/or BLAST databases.
+* **NCBI BLAST+ tblastn**: searches a translated nucleotide database using a protein query. Note that one should use the makeblastdb tool to convert the genome assembly into a BLAST database prior to performing a tblastn search.
+* **blastXmlToPsl**: converts BLAST output in XML format to the PSL format.
+* **pslToBed**: transforms a file in PSL format to the BED format.
+
+
+RNA-seq
+--------------
+* **HISAT**:  a fast and sensitive spliced alignment program for mapping RNA-seq reads. See the HISAT2 website for more information.
+* **StringTie**: a fast and highly efficient assembler of RNA-Seq alignments into potential transcripts. See the StringTie website for more information.
+* **Convert Bam to BigWig**: this tool calculates the alignment coverage from a BAM alignment file and converts the result into a BigWig file.
+* **Regtools**: extracts splice junctions from an RNA-Seq BAM file. For more information, check the link: `https://regtools.readthedocs.io/en/latest/ <https://regtools.readthedocs.io/en/latest/>`_
+
+Repeat regions
+--------------
+
+* **TrfBig**: partitions a genome assembly into smaller chunks and then uses Tandem Repeats Finder (TRF) to identify tandem repeats within each chunk
+
+Gene predictors
+---------------
+
+* **Augustus**: a gene prediction program for eukaryotes written by Mario Stanke and Oliver Keller. For more information check the link: `http://bioinf.uni-greifswald.de/augustus/ <http://bioinf.uni-greifswald.de/augustus/>`_
+* **Multi_Fasta_GlimmerHmm**: a gene finder based on a Generalized Hidden Markov Model (GHMM). For more information check the link: `https://ccb.jhu.edu/software/glimmerhmm/ <https://ccb.jhu.edu/software/glimmerhmm/>`_
+* **SNAP**: is a general purpose gene finding program suitable for both eukaryotic and prokaryotic genomes. SNAP is an acronym for Semi-HMM-based Nucleic Acid Parser. For more information, check the link: `http://korflab.ucdavis.edu/software.html <http://korflab.ucdavis.edu/software.html>`_
+
+Create UCSC Genome Browser assembly hubs
+----------------------------------------
+* **Hub Archive Creator**: this Galaxy tool converts a genome assembly and the results produced by different bioinformatics tools into an Assembly Hub so that the assembly and its evidence tracks can be visualized on the UCSC Genome Browser. For more information, check the links below:
+`https://github.com/goeckslab/hub-archive-creator <https://github.com/goeckslab/hub-archive-creator>`_
+`http://genome.ucsc.edu/goldenPath/help/hubQuickStartAssembly.html <https://github.com/goeckslab/hub-archive-creator>`_
+

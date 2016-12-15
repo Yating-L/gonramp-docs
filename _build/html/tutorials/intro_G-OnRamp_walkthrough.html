@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.1.1.1. Introduction to G-OnRamp Walkthrough &#8212; G-OnRamp 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.2.1. Customize the Genome Browsers produced by G-OnRamp" href="Customize.html" />
+    <link rel="prev" title="2.1.1. Basic usage" href="Basic_usage.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="introduction-to-g-onramp-walkthrough">
+<h1>2.1.1.1. Introduction to G-OnRamp Walkthrough<a class="headerlink" href="#introduction-to-g-onramp-walkthrough" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>2.1.1.1.1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The overall goal of this walkthrough is to illustrate the use of the G-OnRamp workflow to create a genome browser. The walkthrough will cover topics including how to create an account and login, how to import the G-OnRamp workflow into your workspace, how to modify the workflow by changing tool parameters and adding new tools, and how to run the workflow. This walkthrough assumes that the reader has some basic familiarity with Galaxy. (See the “Overview of Galaxy” presentation for a detailed introduction to Galaxy).</p>
+</div>
+<div class="section" id="login">
+<h2>2.1.1.1.2. Login<a class="headerlink" href="#login" title="Permalink to this headline">¶</a></h2>
+<p>Start the G-OnRamp virtual image and start the Galaxy server. Click on the link <a class="reference external" href="http://192.168.56.11:8080/gonramp/">http://192.168.56.11:8080/gonramp/</a> to navigate to the G-OnRamp instance.</p>
+<p>First of all, you need to log into your Galaxy account in order to access the full functionality of Galaxy. First click on &#8220;User&#8221; at the menu bar, and then choose &#8220;Login&#8221; (<a class="reference internal" href="#figure-login"><span class="std std-numref">Fig. 2.1</span></a>). Then enter your username and password (<a class="reference internal" href="#figure-login-form"><span class="std std-numref">Fig. 2.2</span></a>).</p>
+<blockquote>
+<div><ul class="simple">
+<li>username: galaxyadmin</li>
+<li>password: 12341234</li>
+</ul>
+</div></blockquote>
+<div class="figure" id="id1">
+<span id="figure-login"></span><a class="reference internal image-reference" href="../_images/Login1.png"><img alt="../_images/Login1.png" src="../_images/Login1.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 2.1 </span><span class="caption-text">Open the login form from the “User” menu at the main menu bar</span></p>
+</div>
+<div class="figure" id="id2">
+<span id="figure-login-form"></span><a class="reference internal image-reference" href="../_images/Login2.png"><img alt="../_images/Login2.png" src="../_images/Login2.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 2.2 </span><span class="caption-text">Enter the email address that you used to create your Galaxy account and your account password to log into Galaxy</span></p>
+</div>
+</div>
+<div class="section" id="import-g-onramp-workflow">
+<h2>2.1.1.1.3. Import G-OnRamp workflow<a class="headerlink" href="#import-g-onramp-workflow" title="Permalink to this headline">¶</a></h2>
+<p>The G-OnRamp workflow has been shared with you in the &#8220;Shared Data&#8221;. Click on &#8220;Shared Data&#8221; in the top menu bar and choose &#8220;Workflows&#8221; in the drop down menu (<a class="reference internal" href="#share-workflows"><span class="std std-numref">Fig. 2.3</span></a>). Find the workflow called &#8220;G-OnRamp&#8221; in the published workflows and click on the down arrow on the right side. Choose &#8220;import&#8221; to import the G-OnRamp workflow into your Galaxy account (<a class="reference internal" href="#import-workflow"><span class="std std-numref">Fig. 2.4</span></a>).</p>
+<div class="figure" id="id3">
+<span id="share-workflows"></span><a class="reference internal image-reference" href="../_images/workflow.png"><img alt="../_images/workflow.png" src="../_images/workflow.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 2.3 </span><span class="caption-text">Find the G-OnRamp workflow at &#8220;Shared Data&#8221; in the top menu bar</span></p>
+</div>
+<div class="figure" id="id4">
+<span id="import-workflow"></span><img alt="../_images/import-workflow.png" src="../_images/import-workflow.png" />
+<p class="caption"><span class="caption-number">Fig. 2.4 </span><span class="caption-text">Click on the down arrow on the right side and import the workflow</span></p>
+</div>
+<p>You can access the imported workflow via the “Workflow” menu item on the menu bar. The “imported: G-OnRamp” workflow will appear under the “Your workflows” section. When you right click (control-click on the Mac) on the workflow or click on the down arrow, a context-sensitive menu will appear where you can edit, run, share or download, copy, rename, view, and delete the workflow (<a class="reference internal" href="#workflow"><span class="std std-numref">Fig. 2.5</span></a>).</p>
+<div class="figure" id="id5">
+<span id="workflow"></span><img alt="../_images/workflow2.png" src="../_images/workflow2.png" />
+<p class="caption"><span class="caption-number">Fig. 2.5 </span><span class="caption-text">Context-sensitive menu that specifies the different ways that you can manipulate the imported workflow</span></p>
+</div>
+<p>Enter “G-OnRamp: D. biarmipes F element” into the “Workflow Name” field and then click on “Rename” to change the name of the workflow (<a class="reference internal" href="#rename"><span class="std std-numref">Fig. 2.6</span></a>). Go back to the home page.</p>
+<div class="figure" id="id6">
+<span id="rename"></span><img alt="../_images/rename.png" src="../_images/rename.png" />
+<p class="caption"><span class="caption-number">Fig. 2.6 </span><span class="caption-text">Rename the workflow</span></p>
+</div>
+</div>
+<div class="section" id="run-the-g-onramp-workflow">
+<h2>2.1.1.1.4. Run the G-OnRamp workflow<a class="headerlink" href="#run-the-g-onramp-workflow" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="upload-your-datasets">
+<h3>2.1.1.1.4.1. Upload your datasets<a class="headerlink" href="#upload-your-datasets" title="Permalink to this headline">¶</a></h3>
+<p>The test datasets that we will use in this walkthrough are available at the &#8220;Data Libraries&#8221; within the “Shared Datasets” (<a class="reference internal" href="#data-lib"><span class="std std-numref">Fig. 2.7</span></a>). Click on the folder &#8220;Dbia3&#8221;. There are four test datasets in the folder: the reference genome sequence from the Drosophila biarmipes Muller F element, a collection of Drosophila melanogaster protein sequences, and the forward and reverse paired-end reads from contig16 of D. biarmipes RNA-Seq data. Select all the datasets in the foder(<a class="reference internal" href="#import-data"><span class="std std-numref">Fig. 2.8</span></a>). Import them to a new History, which you can name it &#8220;Dbia3&#8221; (<a class="reference internal" href="#import-data2"><span class="std std-numref">Fig. 2.9</span></a>).</p>
+<div class="figure" id="id7">
+<span id="data-lib"></span><img alt="../_images/data-lib.png" src="../_images/data-lib.png" />
+<p class="caption"><span class="caption-number">Fig. 2.7 </span><span class="caption-text">Go to &#8220;Shared Data&#8221; and choose &#8220;Data Libraries&#8221; from the drop down menu</span></p>
+</div>
+<div class="figure" id="id8">
+<span id="import-data"></span><img alt="../_images/import-data.png" src="../_images/import-data.png" />
+<p class="caption"><span class="caption-number">Fig. 2.8 </span><span class="caption-text">Select all the datasets in the Dbia3 folder</span></p>
+</div>
+<div class="figure" id="id9">
+<span id="import-data2"></span><a class="reference internal image-reference" href="../_images/import-data2.png"><img alt="../_images/import-data2.png" src="../_images/import-data2.png" style="height: 250px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 2.9 </span><span class="caption-text">Create a new History named Dbia3 and import the datasets to the new History</span></p>
+</div>
+<p>Once all of your datasets have been import to History, you can use the G-OnRamp workflow to analyze your datasets. However, before running the G-OnRamp workflow, you need to verify that Galaxy has assigned the correct data format to each of the file. In some cases, Galaxy incorrectly assigned the “dmel-all-translation-r6.11.fasta” file to the sdf format instead of the fasta format. Therefore, you need to manually edit its datatype by clicking on “pencil” icon at the top right corner of this dataset (<a class="reference internal" href="#datatype"><span class="std std-numref">Fig. 2.10</span></a>). You can skip this datatype editing by going directly to <a class="reference internal" href="#section-workflow"><span class="std std-ref">Run the workflow</span></a> if all your files have been assigned the correct data format.</p>
+<div class="figure" id="id10">
+<span id="datatype"></span><a class="reference internal image-reference" href="../_images/datatype.png"><img alt="../_images/datatype.png" src="../_images/datatype.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 2.10 </span><span class="caption-text">Edit the attributes of the dataset by clicking on the &#8220;pencil&#8221; button</span></p>
+</div>
+<p>Click on the Datatype tab, click on the down arrow under the “New Type” field, and then select “fasta” (<a class="reference internal" href="#datatype2"><span class="std std-numref">Fig. 2.11</span></a>). Don’t forget to click on the “Save” button (<a class="reference internal" href="#datatype3"><span class="std std-numref">Fig. 2.12</span></a>).</p>
+<div class="figure" id="id11">
+<span id="datatype2"></span><img alt="../_images/datatype2.png" src="../_images/datatype2.png" />
+<p class="caption"><span class="caption-number">Fig. 2.11 </span><span class="caption-text">Change the datatype of the dmel-all-translation-r6.11.fasta dataset to fasta</span></p>
+</div>
+<div class="figure" id="id12">
+<span id="datatype3"></span><a class="reference internal image-reference" href="../_images/datatype3.png"><img alt="../_images/datatype3.png" src="../_images/datatype3.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 2.12 </span><span class="caption-text">Save the new datatype for the dmel-all-translation-r6.11.fasta dataset</span></p>
+</div>
+</div>
+<div class="section" id="run-the-workflow">
+<span id="section-workflow"></span><h3>2.1.1.1.4.2. Run the workflow<a class="headerlink" href="#run-the-workflow" title="Permalink to this headline">¶</a></h3>
+<p>Click on the “Workflow” menu on the menu bar. Click on the “G-OnRamp:D. biarmipes F element” workflow and then select “Run” from the drop-down menu to run the workflow (Figure 15).</p>
+<div class="figure" id="id13">
+<span id="run-workflow"></span><a class="reference internal image-reference" href="../_images/run-workflow.png"><img alt="../_images/run-workflow.png" src="../_images/run-workflow.png" style="height: 300px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 2.13 </span><span class="caption-text">Click on the drop-down menu for the “G-OnRamp: D. biarmipes F element” workflow to run the workflow</span></p>
+</div>
+<p>The workflow consists of 16 different steps. In order to run the workflow, you need to specify the datasets that should be used in Step 1 to Step 4 (<a class="reference internal" href="#specify-data"><span class="std std-numref">Fig. 2.14</span></a>). Select the reference genome for Step 1. Select the protein sequence(s) that you would like to align against the assembly in Step 2. Select the forward and reverse reads from your RNA-Seq experiments for Step 3 and Step 4.</p>
+<div class="figure" id="id14">
+<span id="specify-data"></span><img alt="../_images/specify-data.png" src="../_images/specify-data.png" />
+<p class="caption"><span class="caption-number">Fig. 2.14 </span><span class="caption-text">Specify the datasets that should be used in Step 1 to Step 4</span></p>
+</div>
+<p>You can also use this form to examine and edit the parameter settings for each step of the workflow. Let’s run the workflow with the default settings this time. We will cover how to modify the G-OnRamp workflow in a subsequent walkthrough. (See the “Customize the Genome Browsers produced by G-OnRamp” walkthrough for details.)</p>
+<p>Finally, scroll down to the bottom of the page. Check the box to send the results to a new History and then click on the “Run workflow” button to start the analysis (<a class="reference internal" href="#run-workflow2"><span class="std std-numref">Fig. 2.15</span></a>) .</p>
+<div class="figure" id="id15">
+<span id="run-workflow2"></span><a class="reference internal image-reference" href="../_images/run-workflow2.png"><img alt="../_images/run-workflow2.png" src="../_images/run-workflow2.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 2.15 </span><span class="caption-text">Click on the &#8220;Run workflow&#8221; button to start the analysis</span></p>
+</div>
+</div>
+<div class="section" id="view-the-results">
+<h3>2.1.1.1.4.3. View the results<a class="headerlink" href="#view-the-results" title="Permalink to this headline">¶</a></h3>
+<p>After all the steps in the G-OnRamp workflow are complete (which will take a few minutes), you can view the genome browser for the D. biarmipes F element by expanding the “Hub Archive Creator” step (i.e. Step 18) and then click on the “main” link next to the “display at Track Hub UCSC” field (<a class="reference internal" href="#main"><span class="std std-numref">Fig. 2.16</span></a>).</p>
+<div class="figure" id="id16">
+<span id="main"></span><a class="reference internal image-reference" href="../_images/main.png"><img alt="../_images/main.png" src="../_images/main.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 2.16 </span><span class="caption-text">View results on the UCSC genome browser</span></p>
+</div>
+<p>Because the RNA-Seq dataset that we used in this analysis only contains the RNA-Seq reads that mapped to contig16, we will examine this contig using the UCSC Genome Browser. Enter “contig16” into the “Position/Search Term” field and then click on the GO button (<a class="reference internal" href="#contig16"><span class="std std-numref">Fig. 2.17</span></a>). Finally, you can then see the results of the G-OnRamp workflow as different evidence tracks on the UCSC genome browser (<a class="reference internal" href="#browser"><span class="std std-numref">Fig. 2.18</span></a>).</p>
+<div class="figure" id="id17">
+<span id="contig16"></span><a class="reference internal image-reference" href="../_images/contig16.png"><img alt="../_images/contig16.png" src="../_images/contig16.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 2.17 </span><span class="caption-text">Specify the contig number in the “Position/Search Term” field and then click on GO</span></p>
+</div>
+<div class="figure" id="id18">
+<span id="browser"></span><a class="reference internal image-reference" href="../_images/browser.png"><img alt="../_images/browser.png" src="../_images/browser.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 2.18 </span><span class="caption-text">View the genome assembly and the evidence tracks produced by the Hub Archive Creator on the UCSC genome browser</span></p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">2.1.1.1. Introduction to G-OnRamp Walkthrough</a><ul>
+<li><a class="reference internal" href="#introduction">2.1.1.1.1. Introduction</a></li>
+<li><a class="reference internal" href="#login">2.1.1.1.2. Login</a></li>
+<li><a class="reference internal" href="#import-g-onramp-workflow">2.1.1.1.3. Import G-OnRamp workflow</a></li>
+<li><a class="reference internal" href="#run-the-g-onramp-workflow">2.1.1.1.4. Run the G-OnRamp workflow</a><ul>
+<li><a class="reference internal" href="#upload-your-datasets">2.1.1.1.4.1. Upload your datasets</a></li>
+<li><a class="reference internal" href="#run-the-workflow">2.1.1.1.4.2. Run the workflow</a></li>
+<li><a class="reference internal" href="#view-the-results">2.1.1.1.4.3. View the results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../tutorials.html">2. Tutorials of G-OnRamp</a><ul>
+  <li><a href="Basic_usage.html">2.1.1. Basic usage</a><ul>
+      <li>Previous: <a href="Basic_usage.html" title="previous chapter">2.1.1. Basic usage</a></li>
+      <li>Next: <a href="Customize.html" title="next chapter">2.2.1. Customize the Genome Browsers produced by G-OnRamp</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorials/intro_G-OnRamp_walkthrough.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Yating Liu.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../_sources/tutorials/intro_G-OnRamp_walkthrough.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

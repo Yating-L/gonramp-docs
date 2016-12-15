@@ -49,7 +49,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'G-OnRamp'
-copyright = u'2016, Yating'
+copyright = u'2016, Yating Liu'
 author = u'Yating'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -112,7 +112,7 @@ pygments_style = 'sphinx'
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
-
+numfig = True
 
 # -- Options for HTML output ----------------------------------------------
 
@@ -125,10 +125,20 @@ html_theme = 'alabaster'
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-# html_theme_options = {}
+html_theme_options = {
+    'link': '#0FBE7C',
+    'sidebar_text': '#0FBE7C',
+    'sidebar_link_underscore': '1px solid #f2f2f2',
+    'sidebar_search_button': '#0FBE7C',
+    'font_size': '16px',
+    'gray_1': '#0FBE7C',
+    'gray_2': '#0FBE7C',
+    'gray_3': '#0FBE7C',
+
+}
 
 # Add any paths that contain custom themes here, relative to this directory.
-# html_theme_path = []
+#html_theme_path = ["."]
 
 # The name for this set of Sphinx documents.
 # "<project> v<release> documentation" by default.

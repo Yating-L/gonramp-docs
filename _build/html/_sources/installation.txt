@@ -1,0 +1,22 @@
+Installation of G-OnRamp
+========================
+
+For all
+-------
+
+1. G-OnRamp website
+2. Virtual Machine (some restrictions apply)
+
+For Biologists
+--------------
+.. toctree::
+   :maxdepth: 2
+
+   Install G-OnRamp virtual machine image <installation/virtual_machine>
+
+For Developers
+--------------
+.. toctree::
+   :maxdepth: 2
+
+   Create G-OnRamp virtual machine image <installation/create_virtual_image>

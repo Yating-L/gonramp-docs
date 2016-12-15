@@ -1,0 +1,54 @@
+Introduction to G-OnRamp Walkthrough
+====================================
+
+Introduction
+------------
+
+The overall goal of this walkthrough is to illustrate the use of the G-OnRamp workflow to create a genome browser. The walkthrough will cover topics including how to create an account and login, how to import the G-OnRamp workflow into your workspace, how to modify the workflow by changing tool parameters and adding new tools, and how to run the workflow. This walkthrough assumes that the reader has some basic familiarity with Galaxy. (See the “Overview of Galaxy” presentation for a detailed introduction to Galaxy). 
+
+Register and login
+------------------
+
+Login 
+######
+
+Start the G-OnRamp virtual image and start the Galaxy server. Click on the link `http://192.168.56.11:8080/gonramp/ <http://192.168.56.11:8080/gonramp/>`_ to navigate to the G-OnRamp instance.
+
+First of all, you need to log into your Galaxy account in order to access the full functionality of Galaxy. First click on "User" at the menu bar, and then choose "Login" (:numref:`Figure <figure-login>`). Then enter your username and password (:numref:`Figure <figure-login-form>`).
+
+    - username: galaxyadmin    
+    - password: 12341234
+
+.. _figure-login:
+
+.. figure:: image/Login1.png
+   alt: Open the login form from the “User” menu at the main menu bar
+   
+   Open the login form from the “User” menu at the main menu bar
+   
+.. _figure-login-form:
+
+.. figure:: image/Login2.png
+   alt: Enter the email address that you used to create your Galaxy account and your account password to log into Galaxy
+   
+   Enter the email address that you used to create your Galaxy account and your account password to log into Galaxy
+   
+Import G-OnRamp workflow
+########################
+
+The G-OnRamp workflow has been shared with you via a link named “G-OnRamp workflow” in the “G-OnRamp_links.txt” file. Copy the link into the address bar of your web browser and press “Enter” to navigate to the workflow page. Open the link and click on the green “+” button at the top right corner to import the workflow into your Galaxy account (Figure 5).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
