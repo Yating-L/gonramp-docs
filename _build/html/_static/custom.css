@@ -81,11 +81,7 @@ table {
 /* =LINKS
 ----------------------------------------------- */
 a {
-<<<<<<< HEAD
 	font-weight: bold;
-=======
-	color: #0b8e5c;
->>>>>>> 21bd11227a0be0c7b914da43672812a53783ab47
 	text-decoration: none;
 }
 a:focus, a:active, a:hover {
