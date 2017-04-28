@@ -15,8 +15,8 @@ Create G-OnRamp virtual machine
 
    Create G-OnRamp virtual machine image <installation/create_virtual_image>
 
-Create G-OnRamp virtual machine
--------------------------------
+Create G-OnRamp virtual machine in production environment
+----------------------------------------------------------
 .. toctree::
    :maxdepth: 2
 

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>1.3.1. Create G-OnRamp Virtual Machine Image &#8212; G-OnRamp 0.1.0 documentation</title>
+    <title>1.3.1. Create G-OnRamp Production Image &#8212; G-OnRamp 0.1.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -43,8 +43,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="create-g-onramp-virtual-machine-image">
-<h1>1.3.1. Create G-OnRamp Virtual Machine Image<a class="headerlink" href="#create-g-onramp-virtual-machine-image" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="create-g-onramp-production-image">
+<h1>1.3.1. Create G-OnRamp Production Image<a class="headerlink" href="#create-g-onramp-production-image" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="requirements">
 <h2>1.3.1.1. Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
@@ -55,7 +55,7 @@
 <div class="section" id="step-by-step-instruction">
 <h2>1.3.1.2. Step by step instruction<a class="headerlink" href="#step-by-step-instruction" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="install-ubuntu-server-to-the-virtualbox">
-<h3>1.3.1.2.1. 1. Install Ubuntu server to the VirtualBox<a class="headerlink" href="#install-ubuntu-server-to-the-virtualbox" title="Permalink to this headline">¶</a></h3>
+<h3>1.3.1.2.1. Install Ubuntu server to the VirtualBox<a class="headerlink" href="#install-ubuntu-server-to-the-virtualbox" title="Permalink to this headline">¶</a></h3>
 <p>See <a class="reference external" href="http://tecadmin.net/install-ubuntu-on-virtualbox/">How to Install Ubuntu on VirtualBox</a></p>
 <p>Additional settings when installing the Ubuntu</p>
 <ul class="simple">
@@ -71,7 +71,7 @@
 </ul>
 </div>
 <div class="section" id="initial-ubuntu-setup">
-<h3>1.3.1.2.2. 2. Initial Ubuntu setup<a class="headerlink" href="#initial-ubuntu-setup" title="Permalink to this headline">¶</a></h3>
+<h3>1.3.1.2.2. Initial Ubuntu setup<a class="headerlink" href="#initial-ubuntu-setup" title="Permalink to this headline">¶</a></h3>
 <p>Start the Ubuntu and login in to update the system.</p>
 <p>Update packages:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo apt-get update
@@ -87,7 +87,7 @@ $ reboot
 </div>
 </div>
 <div class="section" id="set-up-internet-host-only-adapter-used-to-connect-guest-vm-from-host-by-ssh">
-<h3>1.3.1.2.3. 3. Set up internet host-only adapter (used to connect guest VM from host by ssh)<a class="headerlink" href="#set-up-internet-host-only-adapter-used-to-connect-guest-vm-from-host-by-ssh" title="Permalink to this headline">¶</a></h3>
+<h3>1.3.1.2.3. Set up internet host-only adapter (used to connect guest VM from host by ssh)<a class="headerlink" href="#set-up-internet-host-only-adapter-used-to-connect-guest-vm-from-host-by-ssh" title="Permalink to this headline">¶</a></h3>
 <p>Shutdown the virtual machine and add vboxnet0 to Adapter 2 as Host-only Adapter. Then restart the virtual machine.</p>
 <a class="reference internal image-reference" href="../_images/network.png"><img alt="add vboxnet0 to Adapter 2" class="align-center" src="../_images/network.png" style="width: 500px;" /></a>
 <p>On the host, type command:</p>
@@ -138,55 +138,66 @@ $ reboot
 </div>
 </div>
 <div class="section" id="install-galaxy">
-<h3>1.3.1.2.4. 4. Install galaxy<a class="headerlink" href="#install-galaxy" title="Permalink to this headline">¶</a></h3>
-<p>Create a NON-ROOT user called galaxy. Running as an existing user will cause problems down the line when you want to grant or restrict access to data.
-$ sudo adduser galaxy
+<h3>1.3.1.2.4. Install Galaxy<a class="headerlink" href="#install-galaxy" title="Permalink to this headline">¶</a></h3>
+<p>Running as an existing user will cause problems down the line when you want to grant or restrict access to data.</p>
+<p>Create a NON-ROOT user called galaxy:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo adduser galaxy
 password: 2016
 Add galaxy to sudo
 $ usermod -aG sudo galaxy
 Then login with galaxy
-$ su - galaxy</p>
-<p>create user for ftp
-$ sudo adduser galaxyftp
-password: 2016</p>
-<p>Make sure Galaxy is using a clean Python interpreter. Conflicts in $PYTHONPATH or the interpreter&#8217;s site-packages/ directory could cause problems. Galaxy manages its own dependencies for the framework, so you do not need to worry about these. The easiest way to do this is with a virtualenv:
-$ sudo apt-get update
-$ sudo apt-get install python-pip
-$ pip install &#8211;upgrade pip
-$ sudo pip install virtualenv
-$ virtualenv gonramp
-$ source gonramp/bin/activate</p>
-<p>Galaxy requires a few things to run: a virtualenv, configuration files and dependent python modules. Starting the server at the first time will set these thing up.</p>
-<p>Download Galaxy 17.01:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git clone -b release_17.01 https://github.com/galaxyproject/galaxy.git
+$ su - galaxy
 </pre></div>
 </div>
-<p># Rename galaxy folder
-$ mv galaxy/ galaxy-dist</p>
-<p>Configure Galaxy
-/
-[server:main]
-host = 192.168.56.11
-filter-with = proxy-prefix
-cookie_path = /galaxy</p>
-<p>[filter:proxy-prefix]
-use = egg:PasteDeploy#prefix
-prefix = /gonramp</p>
-<p>debug = False
-use_interactive = False
-Disable filter-with = gzip
-cleanup_job = onsuccess</p>
+<p>Make sure Galaxy is using a clean Python interpreter. Conflicts in $PYTHONPATH or the interpreter&#8217;s site-packages/ directory could cause problems. Galaxy manages its own dependencies for the framework, so you do not need to worry about these.</p>
+<p>The easiest way to do this is with a virtualenv:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo apt-get update
+$ sudo apt-get install python-pip
+$ pip install --upgrade pip
+$ sudo pip install virtualenv
+$ virtualenv gonramp
+$ source gonramp/bin/activate
+</pre></div>
+</div>
+<p>Galaxy requires a few things to run: a virtualenv, configuration files and dependent python modules. Starting the server at the first time will set these thing up.</p>
+<p>Download Galaxy 17.01 and rename galaxy folder:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git clone -b release_17.01 https://github.com/galaxyproject/galaxy.git
+$ mv galaxy/ galaxy-dist
+</pre></div>
+</div>
+<p>Basic configure Galaxy (galaxy.ini):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">server</span><span class="p">:</span><span class="n">main</span><span class="p">]</span>
+<span class="c1"># The address on which to listen.  By default, only listen to localhost (Galaxy</span>
+<span class="c1"># will not be accessible over the network).  Use &#39;0.0.0.0&#39; to listen on all</span>
+<span class="c1"># available network interfaces.</span>
+<span class="n">host</span> <span class="o">=</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">56.11</span>
+<span class="n">debug</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">use_interactive</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="c1"># filter-with = gzip</span>
+<span class="n">cleanup_job</span> <span class="o">=</span> <span class="n">onsuccess</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="set-up-postgresql-database">
 <h3>1.3.1.2.5. Set up PostgreSQL database<a class="headerlink" href="#set-up-postgresql-database" title="Permalink to this headline">¶</a></h3>
-<p>$ sudo apt-get update
+<p>Install PostgreSQL:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo apt-get update
 $ sudo apt-get install postgresql postgresql-contrib
-$ sudo -u postgres createuser &#8211;superuser galaxy
+</pre></div>
+</div>
+<p>Once installed, create a new database user and new database which the new user is the owner of. No further setup is required, since Galaxy manages its own schema. If you are using a UNIX socket to connect the application to the database (this is the standard case if Galaxy and the database are on the same system), you&#8217;ll want to name the database user the same as the system user under which you run the Galaxy process.</p>
+<p>Create a database and a new user for the database:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo -u postgres createuser --superuser galaxy
 $ sudo -u galaxy createdb galaxy
-$ psql -u galaxy
-$ password 1234
-In galaxy.init, set:
-database_connection = postgresql://galaxy:1234&#64;localhost/galaxy</p>
+$ psql -U galaxy
+galaxy=# \password
+Enter new password: 1234
+</pre></div>
+</div>
+<p>In galaxy.ini, set:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">database_connection</span> <span class="o">=</span> <span class="n">postgresql</span><span class="p">:</span><span class="o">//</span><span class="n">galaxy</span><span class="p">:</span><span class="mi">1234</span><span class="nd">@localhost</span><span class="o">/</span><span class="n">galaxy</span>
+</pre></div>
+</div>
 <p>Run Galaxy:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ cd galaxy
 $ sh run.sh
@@ -195,119 +206,73 @@ $ sh run.sh
 </div>
 <div class="section" id="set-up-proxy-nginx">
 <h3>1.3.1.2.6. Set up proxy nginx<a class="headerlink" href="#set-up-proxy-nginx" title="Permalink to this headline">¶</a></h3>
-<p># Install nginx from pre-build package. Not flexible
-ref: <a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04#step-3-check-your-web-server">https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04#step-3-check-your-web-server</a></p>
-<p>$ sudo systemctl stop apache2.service
+<p><a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04#step-3-check-your-web-server">reference of how to install nginx</a></p>
+<div class="section" id="install-nginx">
+<h4>1.3.1.2.6.1. Install nginx<a class="headerlink" href="#install-nginx" title="Permalink to this headline">¶</a></h4>
+<p>Install nginx from pre-build package:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo systemctl stop apache2.service
 $ sudo apt-get update
 $ sudo apt-get install nginx
-$ sudo apt-get install nginx-extras</p>
-<p># To remove nginx
-# $ sudo apt-get remove nginx nginx-common # Removes all but config files.
-# $ sudo apt-get purge nginx nginx-common # Removes everything.
-# After using any of the above commands, use this in order to remove dependencies used by nginx which are no longer required.
-# $ sudo apt-get autoremove</p>
-<p># Install nginx from source
-# ref: <a class="reference external" href="https://www.nginx.com/resources/admin-guide/installing-nginx-open-source/">https://www.nginx.com/resources/admin-guide/installing-nginx-open-source/</a>
-# Install zlib
-# $ wget <a class="reference external" href="http://zlib.net/zlib-1.2.11.tar.gz">http://zlib.net/zlib-1.2.11.tar.gz</a>
-# $ tar -zxf zlib-1.2.11.tar.gz
-# $ cd zlib-1.2.11
-# $ ./configure
-# $ make
-# $ sudo make install
-#
-# Install openssl
-# $ wget <a class="reference external" href="http://www.openssl.org/source/openssl-1.0.2f.tar.gz">http://www.openssl.org/source/openssl-1.0.2f.tar.gz</a>
-# $ tar -zxf openssl-1.0.2f.tar.gz
-# $ cd openssl-1.0.2f
-# $ ./configure &#8211;prefix=/usr
-# $ make
-# $ sudo make install
-#
-# Connecting to VM via FTP
-# Check the network adapter 1. change it to &#8220;Bridged&#8221;
-# $ reboot</p>
-<p># Common used commands
-# ref: <a class="reference external" href="http://nginx.org/en/docs/beginners_guide.html">http://nginx.org/en/docs/beginners_guide.html</a>
-# nginx -s signal
-# Where signal may be one of the following:
-# stop — fast shutdown
-# quit — graceful shutdown
-# reload — reloading the configuration file
-# reopen — reopening the log files
-# example: nginx -s reload</p>
-<p>#add server block,
-$ cd /etc/nginx/site-available
+$ sudo apt-get install nginx-extras
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-galaxy-server-block">
+<h4>1.3.1.2.6.2. Add galaxy server block<a class="headerlink" href="#add-galaxy-server-block" title="Permalink to this headline">¶</a></h4>
+<p>add server block:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd /etc/nginx/sites-available/
 $ sudo vim galaxy
-# add following server block to galaxy file
-server {</p>
-<blockquote>
-<div><p>listen 80;
-root /var/www/html;
-# maximum file upload size
-client_max_body_size 10G;</p>
-<p># pass most requests to the proxied Galaxy application
-location /gonramp {</p>
-<blockquote>
-<div>proxy_pass        <a class="reference external" href="http://192.168.56.11:8080">http://192.168.56.11:8080</a>;
-proxy_set_header    X-Forwarded-Host $host;
-proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;</div></blockquote>
-<p>}</p>
-<p># directly serve static content in nginx
-location /gonramp/static {</p>
-<blockquote>
-<div>alias /home/galaxy/galaxy-dist/static;
-expires 24h;</div></blockquote>
-<p>}
-location /gonramp/static/style {</p>
-<blockquote>
-<div>alias /home/galaxy/galaxy-dist/static/style/blue;
-expires 24h;</div></blockquote>
-<p>}
-location /gonramp/static/scripts {</p>
-<blockquote>
-<div>alias /home/galaxy/galaxy-dist/static/scripts;
-expires 24h;</div></blockquote>
-<p>}
-location /gonramp/robots.txt {</p>
-<blockquote>
-<div>alias /home/galaxy/galaxy-dist/static/robots.txt;
-expires 24h;</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-<p># enable galaxy server
-$ cd /etc/nginx/site-enabled
-$ sudo ln -s /etc/nginx/site-available/galaxy</p>
-<p>#Make sure that you either comment out or modify line containing default configuration for enabled sites. in /etc/nginx/nginx.conf, include /etc/nginx/sites-enabled/<a href="#id1"><span class="problematic" id="id2">*</span></a>;
-$ cd /etc/nginx/site-enabled
-$ rm default</p>
-<p># Change the root of nginx to /var/www/html/nginx, in order to distinct from apache page
-# $ cd /etc/nginx/site-available
-# $ sudo vim galaxy #change root to /var/www/html/nginx
-# $ cd /var/www/html
-# $ sudo mkdir /var/www/html/nginx
-# $ mv index.nginx-debian.html nginx/
-# $ sudo systemctl restart nginx</p>
+</pre></div>
 </div>
-<div class="section" id="rotate-log-files">
-<h3>1.3.1.2.7. Rotate log files<a class="headerlink" href="#rotate-log-files" title="Permalink to this headline">¶</a></h3>
-<p>To use logrotate to rotate Galaxy log files, add a new file named &#8220;galaxy&#8221; to /etc/logrotate.d/ directory with something like:</p>
-<dl class="docutils">
-<dt>PATH_TO_GALAXY_LOG_FILES {</dt>
-<dd>weekly
-rotate 8
-copytruncate
-compress
-missingok
-notifempty</dd>
-</dl>
-<p>}</p>
+<p>add following server block to galaxy file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>server {
+  listen 80;
+  root /var/www/html;
+  # maximum file upload size
+  client_max_body_size 10G;
+
+  # pass most requests to the proxied Galaxy application
+  location /gonramp {
+      proxy_pass        http://192.168.56.11:8080;
+      proxy_set_header    X-Forwarded-Host $host;
+      proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+
+  # directly serve static content in nginx
+  location /gonramp/static {
+      alias /home/galaxy/galaxy-dist/static;
+      expires 24h;
+  }
+  location /gonramp/static/style {
+      alias /home/galaxy/galaxy-dist/static/style/blue;
+      expires 24h;
+  }
+  location /gonramp/static/scripts {
+      alias /home/galaxy/galaxy-dist/static/scripts;
+      expires 24h;
+  }
+  location /gonramp/favicon.ico {
+      alias /home/galaxy/galaxy-dist/static/favicon.ico;
+      expires 24h;
+  }
+  location /gonramp/robots.txt {
+      alias /home/galaxy/galaxy-dist/static/robots.txt;
+      expires 24h;
+  }
+}
+</pre></div>
 </div>
-<div class="section" id="set-up-galaxy">
-<h3>1.3.1.2.8. 6. Set up Galaxy<a class="headerlink" href="#set-up-galaxy" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="set-proxy">
-<h4>1.3.1.2.8.1. Set proxy<a class="headerlink" href="#set-proxy" title="Permalink to this headline">¶</a></h4>
+<p>enable galaxy server:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd /etc/nginx/sites-enabled/
+$ sudo ln -s /etc/nginx/sites-available/galaxy /etc/nginx/sites-enabled/galaxy
+</pre></div>
+</div>
+<p>Make sure that you either comment out or modify line containing default configuration for enabled sites. in /etc/nginx/nginx.conf, include /etc/nginx/sites-enabled/:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd /etc/nginx/site-enabled
+$ rm default
+$ sudo service nginx restart
+</pre></div>
+</div>
 <p>Galaxy application needs to be aware that it is running with a prefix (for generating URLs in dynamic pages). This is accomplished by configuring a Paste proxy-prefix filter in the [app:main] section of config/galaxy.ini and restarting Galaxy:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">server</span><span class="p">:</span><span class="n">main</span><span class="p">]</span>
   <span class="n">host</span> <span class="o">=</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">56.11</span>
@@ -320,21 +285,383 @@ notifempty</dd>
 </pre></div>
 </div>
 </div>
+<div class="section" id="compression-and-caching">
+<h4>1.3.1.2.6.3. Compression and caching<a class="headerlink" href="#compression-and-caching" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://galaxyproject.org/admin/config/nginxProxy/">nginx_ref</a></p>
+<p>All of Galaxy&#8217;s static content can be cached on the client side, and everything (including dynamic content) can be compressed on the fly. This will decrease download and page load times for your clients, as well as decrease server load and bandwidth usage. To enable, you&#8217;ll need nginx gzip support (which is standard unless compiled with &#8211;without-http_gzip_module), and the following in your nginx.conf:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!highlight nginx</span>
+<span class="n">http</span> <span class="p">{</span>
+      <span class="n">gzip</span> <span class="n">on</span><span class="p">;</span>
+      <span class="n">gzip_disable</span> <span class="s2">&quot;msie6&quot;</span><span class="p">;</span>
+
+      <span class="n">gzip_vary</span> <span class="n">on</span><span class="p">;</span>
+      <span class="n">gzip_proxied</span> <span class="nb">any</span><span class="p">;</span>
+      <span class="n">gzip_comp_level</span> <span class="mi">4</span><span class="p">;</span>
+      <span class="n">gzip_buffers</span> <span class="mi">16</span> <span class="mi">8</span><span class="n">k</span><span class="p">;</span>
+      <span class="n">gzip_http_version</span> <span class="mf">1.1</span><span class="p">;</span>
+      <span class="n">gzip_types</span> <span class="n">text</span><span class="o">/</span><span class="n">plain</span> <span class="n">text</span><span class="o">/</span><span class="n">css</span> <span class="n">application</span><span class="o">/</span><span class="n">json</span> <span class="n">application</span><span class="o">/</span><span class="n">javascript</span> <span class="n">text</span><span class="o">/</span><span class="n">xml</span> <span class="n">application</span><span class="o">/</span><span class="n">xml</span> <span class="n">application</span><span class="o">/</span><span class="n">xml</span><span class="o">+</span><span class="n">rss</span> <span class="n">text</span><span class="o">/</span><span class="n">javascript</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For caching, you&#8217;ll need to add an expires directive to the location /static { } blocks (already added, see server block)</p>
+</div>
+<div class="section" id="sending-files-using-nginx">
+<h4>1.3.1.2.6.4. Sending files using nginx<a class="headerlink" href="#sending-files-using-nginx" title="Permalink to this headline">¶</a></h4>
+<p>Add following to galaxy server block:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">server</span> <span class="p">{</span>
+      <span class="n">location</span> <span class="n">gonramp</span><span class="o">/</span><span class="n">_x_accel_redirect</span><span class="o">/</span> <span class="p">{</span>
+          <span class="n">internal</span><span class="p">;</span>
+          <span class="n">alias</span> <span class="o">/</span><span class="p">;</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+<p>And the following to the [app:main] section of config/galaxy.ini:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nginx_x_accel_redirect_base</span> <span class="o">=</span> <span class="o">/</span><span class="n">_x_accel_redirect</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="receiving-files-using-nginx">
+<h4>1.3.1.2.6.5. Receiving files using nginx<a class="headerlink" href="#receiving-files-using-nginx" title="Permalink to this headline">¶</a></h4>
+<p>To enable it, you must first download, compile and install nginx_upload_module. This means recompiling nginx.
+TODO: need to install nginx from the source and recompile</p>
+</div>
+</div>
+<div class="section" id="rotate-log-files">
+<h3>1.3.1.2.7. Rotate log files<a class="headerlink" href="#rotate-log-files" title="Permalink to this headline">¶</a></h3>
+<p>To use logrotate to rotate Galaxy log files, add a new file named &#8220;galaxy&#8221; to /etc/logrotate.d/ directory with something like:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PATH_TO_GALAXY_LOG_FILES</span> <span class="p">{</span>
+  <span class="n">weekly</span>
+  <span class="n">rotate</span> <span class="mi">8</span>
+  <span class="n">copytruncate</span>
+  <span class="n">compress</span>
+  <span class="n">missingok</span>
+  <span class="n">notifempty</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ftp-server">
+<h3>1.3.1.2.8. FTP server<a class="headerlink" href="#ftp-server" title="Permalink to this headline">¶</a></h3>
+<p>in the config file, galaxy.ini, set:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ftp_upload_dir</span> <span class="o">=</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">galaxy</span><span class="o">/</span><span class="n">galaxy</span><span class="o">-</span><span class="n">dist</span><span class="o">/</span><span class="n">database</span><span class="o">/</span><span class="n">ftp</span><span class="o">/</span>
+<span class="n">ftp_upload_site</span> <span class="o">=</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">56.11</span>
+</pre></div>
+</div>
+<div class="section" id="set-up-ftp-server">
+<h4>1.3.1.2.8.1. set up FTP server<a class="headerlink" href="#set-up-ftp-server" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://kyup.com/tutorials/install-setup-ftp-server-proftpd/">FTP reference</a></p>
+<p>Install ProFTPD:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo apt-get install proftpd
+$ sudo apt-get install proftpd-mod-pgsql
+$ sudo nano /etc/proftpd/proftpd.conf
+</pre></div>
+</div>
+<p>Configure /etc/proftpd/proftpd.conf:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Includes DSO modules</span>
+<span class="n">Include</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">proftpd</span><span class="o">/</span><span class="n">modules</span><span class="o">.</span><span class="n">conf</span>
+
+<span class="c1"># Basics, some site-specific</span>
+<span class="n">ServerName</span>                      <span class="s2">&quot;Public Galaxy FTP&quot;</span>
+<span class="n">ServerType</span>                      <span class="n">standalone</span>
+<span class="n">DefaultServer</span>                   <span class="n">on</span>
+<span class="n">Port</span>                            <span class="mi">21</span>
+<span class="n">Umask</span>                           <span class="mi">022</span>
+<span class="n">SyslogFacility</span>                 <span class="n">DAEMON</span>
+<span class="n">SyslogLevel</span>                    <span class="n">debug</span>
+<span class="n">MaxInstances</span>                    <span class="mi">30</span>
+<span class="n">User</span>                            <span class="n">galaxy</span>
+<span class="n">Group</span>                           <span class="n">galaxy</span>
+
+<span class="c1"># Passive port range for the firewall</span>
+<span class="n">PassivePorts</span>                    <span class="mi">30000</span> <span class="mi">40000</span>
+
+<span class="c1"># Cause every FTP user to be &quot;jailed&quot; (chrooted) into their home directory</span>
+<span class="n">DefaultRoot</span>                     <span class="o">~</span>
+
+<span class="c1"># Automatically create home directory if it doesn&#39;t exist</span>
+<span class="n">CreateHome</span>                      <span class="n">on</span> <span class="n">dirmode</span> <span class="mi">700</span>
+
+<span class="c1"># Allow users to overwrite their files</span>
+<span class="n">AllowOverwrite</span>                  <span class="n">on</span>
+
+<span class="c1"># Allow users to resume interrupted uploads</span>
+<span class="n">AllowStoreRestart</span>               <span class="n">on</span>
+
+<span class="c1"># Bar use of SITE CHMOD</span>
+<span class="o">&lt;</span><span class="n">Limit</span> <span class="n">SITE_CHMOD</span><span class="o">&gt;</span>
+  <span class="n">DenyAll</span>
+<span class="o">&lt;/</span><span class="n">Limit</span><span class="o">&gt;</span>
+
+<span class="c1"># Bar use of RETR (download) since this is not a public file drop</span>
+<span class="o">&lt;</span><span class="n">Limit</span> <span class="n">RETR</span><span class="o">&gt;</span>
+  <span class="n">DenyAll</span>
+<span class="o">&lt;/</span><span class="n">Limit</span><span class="o">&gt;</span>
+
+<span class="c1"># Do not authenticate against real (system) users</span>
+<span class="n">AuthPAM</span>                         <span class="n">off</span>
+
+<span class="c1"># By default, Galaxy stores passwords using PBKDF2.</span>
+<span class="c1"># Configuration that handles PBKDF2 encryption</span>
+<span class="n">SQLPasswordEngine</span>               <span class="n">on</span>
+<span class="n">SQLPasswordEncoding</span>             <span class="n">base64</span>
+<span class="n">SQLPasswordPBKDF2</span>               <span class="n">SHA256</span> <span class="mi">10000</span> <span class="mi">24</span>
+<span class="n">SQLPasswordUserSalt</span>             <span class="n">sql</span><span class="p">:</span><span class="o">/</span><span class="n">GetUserSalt</span>
+
+<span class="c1"># Set up mod_sql to authenticate against the Galaxy database</span>
+<span class="n">SQLEngine</span>                       <span class="n">on</span>
+<span class="n">SQLBackend</span>                      <span class="n">postgres</span>
+<span class="n">SQLConnectInfo</span>                  <span class="n">galaxy</span><span class="o">@/</span><span class="n">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">postgresql</span> <span class="n">galaxy</span> <span class="mi">1234</span>
+<span class="n">SQLAuthTypes</span>                    <span class="n">PBKDF2</span>
+<span class="n">SQLAuthenticate</span>                 <span class="n">users</span>
+
+<span class="c1"># An empty directory in case chroot fails</span>
+<span class="n">SQLDefaultHomedir</span>               <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">proftpd</span>
+
+<span class="c1"># Define a custom query for lookup that returns a passwd-like entry. Replace 1001s with the UID and GID of the user running the Galaxy server (to find out: $ id galaxy)</span>
+<span class="n">SQLUserInfo</span>                     <span class="n">custom</span><span class="p">:</span><span class="o">/</span><span class="n">LookupGalaxyUser</span>
+<span class="n">SQLNamedQuery</span>                   <span class="n">LookupGalaxyUser</span> <span class="n">SELECT</span> <span class="s2">&quot;email, (CASE WHEN substring(password from 1 for 6) = &#39;PBKDF2&#39; THEN substring(password from 38 for 69) ELSE password END) AS password2,1001,1001,&#39;/home/galaxy/galaxy-dist/database/ftp/%U&#39;,&#39;/bin/bash&#39; FROM galaxy_user WHERE email=&#39;%U&#39;&quot;</span>
+<span class="n">SQLNamedQuery</span>                   <span class="n">GetUserSalt</span> <span class="n">SELECT</span> <span class="s2">&quot;(CASE WHEN SUBSTRING (password from 1 for 6) = &#39;PBKDF2&#39; THEN SUBSTRING (password from 21 for 16) END) AS salt FROM galaxy_user WHERE email=&#39;%U&#39;&quot;</span>
+</pre></div>
+</div>
+<p>Configure /etc/proftpd/modules.conf, add:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">LoadModule</span> <span class="n">mod_sql</span><span class="o">.</span><span class="n">c</span>
+<span class="n">LoadModule</span> <span class="n">mod_sql_passwd</span><span class="o">.</span><span class="n">c</span>
+<span class="n">LoadModule</span> <span class="n">mod_sql_postgres</span><span class="o">.</span><span class="n">c</span>
+<span class="n">LoadModule</span> <span class="n">mod_sftp_sql</span><span class="o">.</span><span class="n">c</span>
+</pre></div>
+</div>
+<p>When we are ready with the configuration we can start up the ProFTPD server:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo /etc/init.d/proftpd start
+or $ sudo service proftpd restart
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="scaling-and-load-balancing">
+<h3>1.3.1.2.9. Scaling and Load Balancing<a class="headerlink" href="#scaling-and-load-balancing" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://galaxyproject.org/admin/config/performance/scaling/">reference1</a>
+<a class="reference external" href="https://galaxyproject.org/events/bio-it-world2014/w14/">reference2</a></p>
+<p>Enable multiple cores in the virtual environment</p>
+<ol class="arabic simple">
+<li>Stop the VM and go to Settings -&gt; System -&gt; Process</li>
+<li>Change the processors number. I changed to 4.</li>
+<li>Check &#8220;Enable PAE/NX&#8221;, as &#8220;Some operating systems (such as Ubuntu Server) require PAE support from the CPU and cannot be run in a virtual machine without it.&#8221; ( <a class="reference external" href="https://www.virtualbox.org/manual/ch03.html">reference</a>)</li>
+</ol>
+<div class="section" id="set-up-uwsgi">
+<h4>1.3.1.2.9.1. Set up uWSGI<a class="headerlink" href="#set-up-uwsgi" title="Permalink to this headline">¶</a></h4>
+<p>In galaxy.ini, define one or more [server:...] sections:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#Two are shown, you should create as many as are suitable for your usage and hardware.</span>
+<span class="p">[</span><span class="n">server</span><span class="p">:</span><span class="n">web0</span><span class="p">]</span>
+<span class="n">use</span> <span class="o">=</span> <span class="n">egg</span><span class="p">:</span><span class="n">Paste</span><span class="c1">#http</span>
+<span class="n">port</span> <span class="o">=</span> <span class="mi">8080</span>
+<span class="n">host</span> <span class="o">=</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">56.11</span>
+<span class="n">use_threadpool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">threadpool_workers</span> <span class="o">=</span> <span class="mi">7</span>
+
+<span class="p">[</span><span class="n">server</span><span class="p">:</span><span class="n">web1</span><span class="p">]</span>
+<span class="n">use</span> <span class="o">=</span> <span class="n">egg</span><span class="p">:</span><span class="n">Paste</span><span class="c1">#http</span>
+<span class="n">port</span> <span class="o">=</span> <span class="mi">8081</span>
+<span class="n">host</span> <span class="o">=</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">56.11</span>
+<span class="n">use_threadpool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">threadpool_workers</span> <span class="o">=</span> <span class="mi">7</span>
+</pre></div>
+</div>
+<p>In galaxy.ini, define a [uwsgi] section:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">uwsgi</span><span class="p">]</span>
+<span class="n">processes</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">stats</span> <span class="o">=</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">56.11</span><span class="p">:</span><span class="mi">9191</span>
+<span class="n">socket</span> <span class="o">=</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">56.11</span><span class="p">:</span><span class="mi">4001</span>
+<span class="n">pythonpath</span> <span class="o">=</span> <span class="n">lib</span>
+<span class="n">threads</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">logto</span> <span class="o">=</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">galaxy</span><span class="o">/</span><span class="n">gonramp</span><span class="o">/</span><span class="n">logs</span><span class="o">/</span><span class="n">uwsgi</span><span class="o">.</span><span class="n">log</span> <span class="c1">#anywhere you like</span>
+<span class="n">master</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>Port numbers for stats and socket can be adjusted as desired. Moreover, in the [app:main] section, you must set:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">static_enabled</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">track_jobs_in_database</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>Install wusgi:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span># use pip install in the virtual environment
+$ source gonramp/bin/activate
+$ pip install uwsgi
+</pre></div>
+</div>
+<p>The web processes can then be started under uWSGI using:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd /path/to/galaxy-dist
+$ PYTHONPATH=eggs/PasteDeploy-1.5.0-py2.7.egg uwsgi --ini-paste config/galaxy.ini
+#Once started, a proxy server (typically Apache or nginx) must be configured to proxy requests to uWSGI (using uWSGI&#39;s native protocol). Configuration details for these can be found in Proxy section.
+</pre></div>
+</div>
+</div>
+<div class="section" id="job-handler-s">
+<h4>1.3.1.2.9.2. Job Handler(s)<a class="headerlink" href="#job-handler-s" title="Permalink to this headline">¶</a></h4>
+<p>In galaxy.ini, define one or more additional [server:...] sections:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">server</span><span class="p">:</span><span class="n">handler0</span><span class="p">]</span>
+<span class="n">use</span> <span class="o">=</span> <span class="n">egg</span><span class="p">:</span><span class="n">Paste</span><span class="c1">#http</span>
+<span class="n">port</span> <span class="o">=</span> <span class="mi">8090</span>
+<span class="n">host</span> <span class="o">=</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">56.11</span>
+<span class="n">use_threadpool</span> <span class="o">=</span> <span class="n">true</span>
+<span class="n">threadpool_workers</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="p">[</span><span class="n">server</span><span class="p">:</span><span class="n">handler1</span><span class="p">]</span>
+<span class="n">use</span> <span class="o">=</span> <span class="n">egg</span><span class="p">:</span><span class="n">Paste</span><span class="c1">#http</span>
+<span class="n">port</span> <span class="o">=</span> <span class="mi">8091</span>
+<span class="n">host</span> <span class="o">=</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">56.11</span>
+<span class="n">use_threadpool</span> <span class="o">=</span> <span class="n">true</span>
+<span class="n">threadpool_workers</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configure-job-conf-xml">
+<h4>1.3.1.2.9.3. Configure job_conf.xml<a class="headerlink" href="#configure-job-conf-xml" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://galaxyproject.org/admin/config/jobs/">Configure job reference</a>
+Uncomment in galaxy.ini:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">job_config_file</span> <span class="o">=</span> <span class="n">config</span><span class="o">/</span><span class="n">job_conf</span><span class="o">.</span><span class="n">xml</span>
+</pre></div>
+</div>
+<p>Configure galaxy-dist/conf/job_conf.xml:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;!-- A sample job config that explicitly configures job running the way it is configured by default (if there is no explicit config). --&gt;
+&lt;job_conf&gt;
+  &lt;plugins&gt;
+      &lt;plugin id=&quot;local&quot; type=&quot;runner&quot; load=&quot;galaxy.jobs.runners.local:LocalJobRunner&quot; workers=&quot;4&quot;/&gt;
+  &lt;/plugins&gt;
+  &lt;handlers default=&quot;handlers&quot;&gt;
+      &lt;handler id=&quot;handler0&quot; tags=&quot;handlers&quot;/&gt;
+      &lt;handler id=&quot;handler1&quot; tags=&quot;handlers&quot;/&gt;
+  &lt;/handlers&gt;
+  &lt;destinations&gt;
+      &lt;destination id=&quot;local&quot; runner=&quot;local&quot;/&gt;
+  &lt;/destinations&gt;
+&lt;/job_conf&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="start-and-stop-with-supervisord">
+<h4>1.3.1.2.9.4. Start and Stop with supervisord<a class="headerlink" href="#start-and-stop-with-supervisord" title="Permalink to this headline">¶</a></h4>
+<p>Since you need to run multiple processes, the typical run.sh method for starting and stopping Galaxy won&#8217;t work. The current recommended way to manage these multiple processes is with Supervisord.</p>
+<p>Install supervisor in virtualenv:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install supervisor
+</pre></div>
+</div>
+<p>Creating a Configuration File:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>echo_supervisord_conf &gt; /etc/supervisord.conf
+# Configure
+$ vim /etc/supervisord.conf
+# add program galaxy_uwsgi, handler and group section
+
+[program:galaxy_uwsgi]
+command = /home/galaxy/gonramp/bin/uwsgi --virtualenv /home/galaxy/galaxy-dist/.venv --ini-paste /home/galaxy/galaxy-dist/config/galaxy.ini
+directory = /home/galaxy/galaxy-dist
+umask = 022
+autostart = true
+autorestart = true
+startsecs = 20
+user = galaxy
+environment = PATH=/home/galaxy/galaxy-dist/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin, PYTHONHOME=/home/galaxy/galaxy-dist/.venv
+numprocs = 1
+stopsignal = INT
+startretries = 15
+
+[program:handler]
+command = /home/galaxy/galaxy-dist/.venv/bin/python ./lib/galaxy/main.py -c ./config/galaxy.ini --server-name=handler%(process_num)s --log-file=/home/galaxy/galaxy-dist/handler%(process_num)s.log
+directory = /home/galaxy/galaxy-dist
+process_name = handler%(process_num)s
+numprocs = 2
+unmask = 022
+autostart = true
+autorestart = true
+startsecs = 20
+user = galaxy
+environment = PYTHONHOME=/home/galaxy/galaxy-dist/.venv
+
+[group:galaxy]
+programs = handler, galaxy_uwsgi
+</pre></div>
+</div>
+<p>Start the program:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ supervisorctl start galaxy:*
+# Check status
+$ supervisorctl status
+# Log file
+$ tail -f /tmp/supervisord.log
+</pre></div>
+</div>
+</div>
+<div class="section" id="proxy-uwsgi-with-nginx">
+<h4>1.3.1.2.9.5. Proxy uWSGI with nginx<a class="headerlink" href="#proxy-uwsgi-with-nginx" title="Permalink to this headline">¶</a></h4>
+<p>Add server block below in /etc/nginx/nginx.conf and comment out #include /etc/nginx/sites-enabled/</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>server {
+  listen 80;
+  root /var/www/html;
+  # maximum file upload size
+  client_max_body_size 10G;
+  uwsgi_read_timeout 180;
+  location /gonramp {
+      include uwsgi_params;
+      uwsgi_pass 192.168.56.11:4001;
+      uwsgi_param UWSGI_SCHEME $scheme;
+  }
+  # directly serve static content in nginx
+  location /gonramp/static {
+      alias /home/galaxy/galaxy-dist/static;
+      expires 24h;
+  }
+  location /gonramp/static/style {
+      alias /home/galaxy/galaxy-dist/static/style/blue;
+      expires 24h;
+  }
+  location /gonramp/static/scripts {
+      alias /home/galaxy/galaxy-dist/static/scripts;
+      expires 24h;
+  }
+  location /gonramp/favicon.ico {
+      alias /home/galaxy/galaxy-dist/static/favicon.ico;
+      expires 24h;
+  }
+  location /gonramp/robots.txt {
+      alias /home/galaxy/galaxy-dist/static/robots.txt;
+      expires 24h;
+  }
+}
+</pre></div>
+</div>
+<p>Restart nginx:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo service nginx restart
+</pre></div>
+</div>
+</div>
+<div class="section" id="access-to-gonramp">
+<h4>1.3.1.2.9.6. Access to gonramp<a class="headerlink" href="#access-to-gonramp" title="Permalink to this headline">¶</a></h4>
+<p>Start then access through browser:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ supervisorctl start galaxy:*
+Goto http://192.168.56.11/gonramp
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="set-up-g-onramp">
+<h3>1.3.1.2.10. 6. Set up G-OnRamp<a class="headerlink" href="#set-up-g-onramp" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="become-an-admin">
-<h4>1.3.1.2.8.2. Become an Admin<a class="headerlink" href="#become-an-admin" title="Permalink to this headline">¶</a></h4>
-<p>In order to install tools, you have to become administrator for your Galaxy instance. First start the server, go to <a class="reference external" href="http://192.168.56.11:8080/gonramp">http://192.168.56.11:8080/gonramp</a>, and register as a new user with your email address.</p>
-<p>#username: <a class="reference external" href="mailto:galaxyadmin&#37;&#52;&#48;gonramp&#46;org">galaxyadmin<span>&#64;</span>gonramp<span>&#46;</span>org</a>
-# public name: galaxyadmin
-#password: 12341234</p>
-<p>Go to galaxy folder and find a sub-folder called config. Add a new file named galaxy.init in the config folder. You can copy the content of galaxy.init.sample into galaxy.init. In galaxy.init, search for the line containing “admin_users”. Add your user email address to admin users. (Replace None to your email address). You can add multiple admin users by appending another email and separating them with a comma:</p>
+<h4>1.3.1.2.10.1. Become an Admin<a class="headerlink" href="#become-an-admin" title="Permalink to this headline">¶</a></h4>
+<p>In order to install tools, you have to become administrator for your Galaxy instance. First start the server, go to <a class="reference external" href="http://192.168.56.11:8080/gonramp">http://192.168.56.11:8080/gonramp</a>, and register as a new user with your email address:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">username</span><span class="p">:</span> <span class="n">galaxyadmin</span><span class="nd">@gonramp</span><span class="o">.</span><span class="n">org</span>
+<span class="n">public</span> <span class="n">name</span><span class="p">:</span> <span class="n">galaxyadmin</span>
+<span class="n">password</span><span class="p">:</span> <span class="mi">12341234</span>
+</pre></div>
+</div>
+<p>Go to galaxy folder and find a sub-folder called config. Add a new file named galaxy.ini in the config folder. You can copy the content of galaxy.ini.sample into galaxy.ini. In galaxy.ini, search for the line containing “admin_users”. Add your user email address to admin users. (Replace None to your email address). You can add multiple admin users by appending another email and separating them with a comma:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># this should be a comma-separated list of valid Galaxy users</span>
 <span class="n">admin_users</span> <span class="o">=</span> <span class="n">galaxyadmin</span><span class="nd">@gonramp</span><span class="o">.</span><span class="n">org</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="set-up-conda">
-<h4>1.3.1.2.8.3. Set up conda<a class="headerlink" href="#set-up-conda" title="Permalink to this headline">¶</a></h4>
-<p>In galaxy.init, uncomment and edit the following conda configuration:</p>
+<h4>1.3.1.2.10.2. Set up conda<a class="headerlink" href="#set-up-conda" title="Permalink to this headline">¶</a></h4>
+<p>In galaxy.ini, uncomment and edit the following conda configuration:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">conda_ensure_channels</span> <span class="o">=</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="p">,</span><span class="n">r</span><span class="p">,</span><span class="n">bioconda</span><span class="p">,</span><span class="n">iuc</span>
 <span class="n">conda_auto_install</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">conda_auto_init</span> <span class="o">=</span> <span class="kc">True</span>
@@ -342,7 +669,7 @@ notifempty</dd>
 </div>
 </div>
 <div class="section" id="connect-your-galaxy-to-the-test-tool-shed">
-<h4>1.3.1.2.8.4. Connect your Galaxy to the test tool shed<a class="headerlink" href="#connect-your-galaxy-to-the-test-tool-shed" title="Permalink to this headline">¶</a></h4>
+<h4>1.3.1.2.10.3. Connect your Galaxy to the test tool shed<a class="headerlink" href="#connect-your-galaxy-to-the-test-tool-shed" title="Permalink to this headline">¶</a></h4>
 <p>Galaxy is connected to the Main Tool Shed by default. Since some tools in G-OnRamp workflow are in the Test Tool Shed, you need to connect to the Test Tool Shed by modifying the “tool_sheds_conf.xml” in config folder:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span># Copy the “tool_sheds_conf.xml.sample” and rename it to “tool_sheds_conf.xml”
 $ cd /home/galaxy/config
@@ -371,7 +698,7 @@ $ vim tool_sheds_conf.xml
 </div>
 </div>
 <div class="section" id="add-necessary-datatypes">
-<h4>1.3.1.2.8.5. Add necessary datatypes<a class="headerlink" href="#add-necessary-datatypes" title="Permalink to this headline">¶</a></h4>
+<h4>1.3.1.2.10.4. Add necessary datatypes<a class="headerlink" href="#add-necessary-datatypes" title="Permalink to this headline">¶</a></h4>
 <p>Copy the “datatypes_conf.xml.sample” and rename it to “datatypes_conf.xml”.
 Add the line below in between &lt;registration&gt;&lt;/registration&gt;:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">datatype</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;psl&quot;</span> <span class="n">subclass</span><span class="o">=</span><span class="s2">&quot;True&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;galaxy.datatypes.tabular:Tabular&quot;</span> <span class="o">/&gt;</span>
@@ -379,7 +706,7 @@ Add the line below in between &lt;registration&gt;&lt;/registration&gt;:</p>
 </div>
 </div>
 <div class="section" id="other-files-should-be-ready-copy-from-sample">
-<h4>1.3.1.2.8.6. Other files should be ready (copy from .sample)<a class="headerlink" href="#other-files-should-be-ready-copy-from-sample" title="Permalink to this headline">¶</a></h4>
+<h4>1.3.1.2.10.5. Other files should be ready (copy from .sample)<a class="headerlink" href="#other-files-should-be-ready-copy-from-sample" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ cp dependency_resolvers_conf.xml.sample dependency_resolvers_conf.xml
 </pre></div>
 </div>
@@ -387,10 +714,10 @@ Add the line below in between &lt;registration&gt;&lt;/registration&gt;:</p>
 </div>
 </div>
 <div class="section" id="install-g-onramp-tools">
-<h3>1.3.1.2.9. 7. Install G-OnRamp tools<a class="headerlink" href="#install-g-onramp-tools" title="Permalink to this headline">¶</a></h3>
+<h3>1.3.1.2.11. 7. Install G-OnRamp tools<a class="headerlink" href="#install-g-onramp-tools" title="Permalink to this headline">¶</a></h3>
 <p>Go to Admin page, and click on Search Tool Shed. Click on the Tool Sheds to search and install. You can add all G-OnRamp tools in a separate panel section by adding a new tool panel section when you install the first tool and then add all the rest tools in the same panel.</p>
 <div class="section" id="click-on-galaxy-main-tool-shed-to-install">
-<h4>1.3.1.2.9.1. Click on Galaxy Main Tool Shed to install<a class="headerlink" href="#click-on-galaxy-main-tool-shed-to-install" title="Permalink to this headline">¶</a></h4>
+<h4>1.3.1.2.11.1. Click on Galaxy Main Tool Shed to install<a class="headerlink" href="#click-on-galaxy-main-tool-shed-to-install" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li>ncbi_blast_plus (by devteam)</li>
 <li>Augustus</li>
@@ -415,7 +742,7 @@ Add the line below in between &lt;registration&gt;&lt;/registration&gt;:</p>
 </ul>
 </div>
 <div class="section" id="tools-need-advanced-configuration">
-<h4>1.3.1.2.9.2. Tools need advanced configuration<a class="headerlink" href="#tools-need-advanced-configuration" title="Permalink to this headline">¶</a></h4>
+<h4>1.3.1.2.11.2. Tools need advanced configuration<a class="headerlink" href="#tools-need-advanced-configuration" title="Permalink to this headline">¶</a></h4>
 <ol class="arabic simple">
 <li>multi_fasta_glimmer_hmm</li>
 </ol>
@@ -449,317 +776,14 @@ $ chmod 755 trf
 <ol class="arabic simple" start="3">
 <li>Bam to Bigwig</li>
 </ol>
-<p>libstdc++.so.6: version <a href="#id3"><span class="problematic" id="id4">`</span></a>GLIBCXX_3.4.20&#8217; not found, maybe because it is not using the right libstdc++.so.6. Delete the installed libstdc++.so.6 in the tool dependencies, so that the tool can use the system version of libstdc++.so.6:</p>
+<p>libstdc++.so.6: version &#8216;GLIBCXX_3.4.20&#8217; not found, maybe because it is not using the right libstdc++.so.6. Delete the installed libstdc++.so.6 in the tool dependencies, so that the tool can use the system version of libstdc++.so.6:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ cd /home/galaxy/galaxy/database/dependencies/ucsc_tools/312/iuc/package_ucsc_tools_312/2d6bafd63401/lib/
 $ rm libstdc++.so.6
 </pre></div>
 </div>
 </div>
 </div>
-<div class="section" id="ftp-server">
-<h3>1.3.1.2.10. FTP server<a class="headerlink" href="#ftp-server" title="Permalink to this headline">¶</a></h3>
-<p>ref: <a class="reference external" href="https://galaxyproject.org/admin/config/upload-via-ftp/">https://galaxyproject.org/admin/config/upload-via-ftp/</a></p>
-<p>in the config file, galaxy.init, set
-ftp_upload_dir = /home/galaxy/galaxy-dist/database/files/
-ftp_upload_site = 192.168.56.11</p>
 </div>
-</div>
-</div>
-<div class="section" id="allow-your-ftp-server-to-read-galaxy-s-database">
-<h1>1.3.2. Allow your FTP server to read Galaxy&#8217;s database<a class="headerlink" href="#allow-your-ftp-server-to-read-galaxy-s-database" title="Permalink to this headline">¶</a></h1>
-<p>You&#8217;ll need to grant a user access to read emails and passwords from the Galaxy database. Although the user Galaxy connects with could be used, I prefer to use a least-privilege setup wherein a separate user is created for the FTP server which has permission to SELECT from the galaxy_user table and nothing else. In postgres this is accomplished with:</p>
-<p>postgres&#64;dbserver% createuser -SDR galaxyftp
-postgres&#64;dbserver% psql galaxydb
-Welcome to psql 8.X.Y, the PostgreSQL interactive terminal.</p>
-<dl class="docutils">
-<dt>Type:  copyright for distribution terms</dt>
-<dd>h for help with SQL commands
-? for help with psql commands
-g or terminate with semicolon to execute query
-q to quit</dd>
-</dl>
-<p>galaxydb=# ALTER ROLE galaxyftp PASSWORD &#8216;dbpassword&#8217;;
-ALTER ROLE
-galaxydb=# GRANT SELECT ON galaxy_user TO galaxyftp;
-GRANT</p>
-</div>
-<div class="section" id="set-up-ftp-server">
-<h1>1.3.3. set up FTP server<a class="headerlink" href="#set-up-ftp-server" title="Permalink to this headline">¶</a></h1>
-<p>ref:https://kyup.com/tutorials/install-setup-ftp-server-proftpd/</p>
-<p>$ sudo apt-get install proftpd
-$ sudo apt-get install proftpd-mod-psql
-$ sudo nano /etc/proftpd/proftpd.conf</p>
-<p>When we are ready with the configuration we can start up the ProFTPD server:
-$ sudo /etc/init.d/proftpd start
-or $ sudo service proftpd restart
-Make sure that the default FTP port 21 is opened on the server:
-$ sudo iptables -A INPUT -p tcp &#8211;dport 21 -j ACCEPT
-$ sudo iptables-save
-Start Up ProFTPD automatically on server boot
-$ sudo update-rc.d proftpd defaults</p>
-<p>Configure /etc/proftpd/proftpd.conf:</p>
-<p>#********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************
-#********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************</p>
-<p>Includes DSO modules
-Include /etc/proftpd/modules.conf</p>
-<p># Basics, some site-specific
-ServerName                      &#8220;Public Galaxy FTP&#8221;
-ServerType                      standalone
-DefaultServer                   on
-Port                            21
-Umask                           022
-SyslogFacility                 DAEMON
-SyslogLevel                    debug
-MaxInstances                    30
-User                            galaxy
-Group                           galaxy</p>
-<p># Passive port range for the firewall
-PassivePorts                    30000 40000</p>
-<p># Cause every FTP user to be &#8220;jailed&#8221; (chrooted) into their home directory
-DefaultRoot                     ~</p>
-<p># Automatically create home directory if it doesn&#8217;t exist
-CreateHome                      on dirmode 700</p>
-<p># Allow users to overwrite their files
-AllowOverwrite                  on</p>
-<p># Allow users to resume interrupted uploads
-AllowStoreRestart               on</p>
-<p># Bar use of SITE CHMOD
-&lt;Limit SITE_CHMOD&gt;</p>
-<blockquote>
-<div>DenyAll</div></blockquote>
-<p>&lt;/Limit&gt;</p>
-<p># Bar use of RETR (download) since this is not a public file drop
-&lt;Limit RETR&gt;</p>
-<blockquote>
-<div>DenyAll</div></blockquote>
-<p>&lt;/Limit&gt;</p>
-<p># Do not authenticate against real (system) users
-AuthPAM                         off</p>
-<p># Set up mod_sql_password - Galaxy passwords are stored as hex-encoded SHA1
-SQLPasswordEngine               on
-SQLPasswordEncoding             base64
-SQLPasswordPBKDF2               SHA256 10000 24
-SQLPasswordUserSalt             sql:/GetUserSalt</p>
-<p># Set up mod_sql to authenticate against the Galaxy database
-SQLEngine                       on
-SQLBackend                      postgres
-SQLConnectInfo                  <a class="reference external" href="mailto:galaxy&#37;&#52;&#48;/var/run/postgresql">galaxy<span>&#64;</span>/var/run/postgresql</a> galaxy 1234
-SQLAuthTypes                    PBKDF2
-SQLAuthenticate                 users</p>
-<p># An empty directory in case chroot fails
-SQLDefaultHomedir               /var/opt/local/proftpd</p>
-<p># Define a custom query for lookup that returns a passwd-like entry. Replace 512s with the UID and GID of the user running the Galaxy server
-SQLUserInfo                     custom:/LookupGalaxyUser
-SQLNamedQuery                   LookupGalaxyUser SELECT &#8220;email, (CASE WHEN substring(password from 1 for 6) = &#8216;PBKDF2&#8217; THEN substring(password from 38 for 69) ELSE password END) AS password2,1001,1001,&#8217;/home/galaxy/galaxy-dist/database/ftp/%U&#8217;,&#8217;/bin/bash&#8217; FROM galaxy_user WHERE email=&#8217;%U&#8217;&#8221;
-SQLNamedQuery                   GetUserSalt SELECT &#8220;(CASE WHEN SUBSTRING (password from 1 for 6) = &#8216;PBKDF2&#8217; THEN SUBSTRING (password from 21 for 16) END) AS salt FROM galaxy_user WHERE email=&#8217;%U&#8217;&#8221;</p>
-<p>#********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************
-#********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************</p>
-<p>Configure /etc/proftpd/modules.conf, add :
-#********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************
-LoadModule mod_sql.c
-LoadModule mod_sql_passwd.c
-LoadModule mod_sql_postgres.c
-LoadModule mod_sftp_sql.c
-#********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************</p>
-<p>#see docker filesystem:
-#docker run &#8211;rm -it &#8211;entrypoint=/bin/bash bgruening/galaxy-stable</p>
-<p>#ref: <a class="reference external" href="https://galaxyproject.org/admin/config/performance/scaling/">https://galaxyproject.org/admin/config/performance/scaling/</a>
-#ref2: <a class="reference external" href="https://galaxyproject.org/events/bio-it-world2014/w14/">https://galaxyproject.org/events/bio-it-world2014/w14/</a></p>
-<p>#Enable multiple cores in the virtual environment
-Stop the VM and go to Settings -&gt; System -&gt; Process
-#(<a class="reference external" href="https://www.virtualbox.org/manual/ch03.html">https://www.virtualbox.org/manual/ch03.html</a>)
-Change the processors number and check &#8220;Enable PAE/NX&#8221;, as &#8220;Some operating systems (such as Ubuntu Server) require PAE support from the CPU and cannot be run in a virtual machine without it.&#8221;</p>
-</div>
-<div class="section" id="set-up-uwsgi">
-<h1>1.3.4. Set up uWSGI<a class="headerlink" href="#set-up-uwsgi" title="Permalink to this headline">¶</a></h1>
-<p>#In galaxy.ini, define one or more [server:...] sections:</p>
-<p>[server:web0]
-use = egg:Paste#http
-port = 8080
-host = 192.168.56.11
-use_threadpool = True
-threadpool_workers = 7</p>
-<p>[server:web1]
-use = egg:Paste#http
-port = 8081
-host = 192.168.56.11
-use_threadpool = True
-threadpool_workers = 7
-#Two are shown, you should create as many as are suitable for your usage and hardware. On our eight-core server, I run six web server processes. You may find you only need one, which is a slightly simpler configuration.</p>
-<p>#In galaxy.ini, define a [uwsgi] section:</p>
-<p>[uwsgi]
-processes = 4
-stats = 192.168.56.11:9191
-socket = 192.168.56.11:4001
-pythonpath = lib
-threads = 4
-logto = /home/galaxy/gonramp/logs/uwsgi.log #anywhere you like
-master = True</p>
-<p>#Port numbers for stats and socket can be adjusted as desired. Moreover, in the [app:main] section, you must set:</p>
-<p>static_enabled = False
-track_jobs_in_database = True</p>
-<p># Install wusgi
-# use pip install in the virtual environment
-$ source gonramp/bin/activate
-$ pip install uwsgi</p>
-<p>#The web processes can then be started under uWSGI using:
-$ cd /path/to/galaxy-dist
-$ PYTHONPATH=eggs/PasteDeploy-1.5.0-py2.7.egg uwsgi &#8211;ini-paste config/galaxy.ini
-#Once started, a proxy server (typically Apache or nginx) must be configured to proxy requests to uWSGI (using uWSGI&#8217;s native protocol). Configuration details for these can be found in Proxy section.</p>
-</div>
-<div class="section" id="job-handler-s">
-<h1>1.3.5. Job Handler(s)<a class="headerlink" href="#job-handler-s" title="Permalink to this headline">¶</a></h1>
-<p>#In galaxy.ini, define one or more additional [server:...] sections:</p>
-<p>[server:handler0]
-use = egg:Paste#http
-port = 8090
-host = 192.168.56.11
-use_threadpool = true
-threadpool_workers = 5</p>
-<p>[server:handler1]
-use = egg:Paste#http
-port = 8091
-host = 192.168.56.11
-use_threadpool = true
-threadpool_workers = 5</p>
-</div>
-<div class="section" id="configure-job-conf-xml">
-<h1>1.3.6. Configure job_conf.xml<a class="headerlink" href="#configure-job-conf-xml" title="Permalink to this headline">¶</a></h1>
-<p># uncomment in galaxy.init
-job_config_file = config/job_conf.xml
-#job configuration <a class="reference external" href="https://galaxyproject.org/admin/config/jobs/">https://galaxyproject.org/admin/config/jobs/</a>
-&lt;?xml version=&#8221;1.0&#8221;?&gt;
-&lt;!&#8211; A sample job config that explicitly configures job running the way it is configured by default (if there is no explicit config). &#8211;&gt;
-&lt;job_conf&gt;</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>&lt;plugins workers=&#8221;2&#8221;&gt;</dt>
-<dd>&lt;plugin id=&#8221;gridengine&#8221; type=&#8221;runner&#8221; load=&#8221;galaxy.jobs.runners.drmaa:DRMAAJobRunner&#8221;/&gt;</dd>
-</dl>
-<p>&lt;/plugins&gt;
-&lt;handlers default=&#8221;handlers&#8221;&gt;</p>
-<blockquote>
-<div>&lt;handler id=&#8221;handler0&#8221; tags=&#8221;handlers&#8221;/&gt;
-&lt;handler id=&#8221;handler1&#8221; tags=&#8221;handlers&#8221;/&gt;</div></blockquote>
-<p>&lt;/handlers&gt;
-&lt;destinations default=&#8221;gridengine&#8221;&gt;</p>
-<blockquote>
-<div>&lt;destination id=&#8221;gridengine&#8221; runner=&#8221;gridengine&#8221;/&gt;</div></blockquote>
-<p>&lt;/destinations&gt;
-&lt;limits&gt;</p>
-<blockquote>
-<div>&lt;limit type=&#8221;registered_user_concurrent_jobs&#8221;&gt;2&lt;/limit&gt;
-&lt;limit type=&#8221;unregistered_user_concurrent_jobs&#8221;&gt;1&lt;/limit&gt;
-&lt;limit type=&#8221;job_walltime&#8221;&gt;24:00:00&lt;/limit&gt;</div></blockquote>
-<p>&lt;/limits&gt;</p>
-</div></blockquote>
-<p>&lt;/job_conf&gt;</p>
-</div>
-<div class="section" id="install-and-configure-grid-engine">
-<h1>1.3.7. Install and configure Grid Engine<a class="headerlink" href="#install-and-configure-grid-engine" title="Permalink to this headline">¶</a></h1>
-<p>$ sudo apt-get install gridengine-master gridengine-exec gridengine-client gridengine-drmaa1.0</p>
-<p>#You&#8217;ll be asked a series of configuration questions for Postfix and Grid Engine at this point. The following answers are suitable for this workshop:</p>
-<p>General type of mail configuration: Local only
-System mail name: galaxy
-Configure SGE automatically?: Yes
-SGE cell name: default
-SGE master hostname: galaxy</p>
-</div>
-<div class="section" id="start-and-stop-with-supervisord">
-<h1>1.3.8. Start and Stop with supervisord<a class="headerlink" href="#start-and-stop-with-supervisord" title="Permalink to this headline">¶</a></h1>
-<p>#Since you need to run multiple processes, the typical run.sh method for starting and stopping Galaxy won&#8217;t work. The current recommended way to manage these multiple processes is with Supervisord.
-# install supervisor in virtualenv
-$ pip install supervisor
-# Creating a Configuration File
-echo_supervisord_conf &gt; /etc/supervisord.conf
-# Configure
-$ vim /etc/supervisord.conf
-# add program galaxy_uwsgi, handler and group section</p>
-<p>[program:galaxy_uwsgi]
-command = /home/galaxy/gonramp/bin/uwsgi &#8211;virtualenv /home/galaxy/galaxy-dist/.venv &#8211;ini-paste /home/galaxy/galaxy-dist/config/galaxy.ini
-directory = /home/galaxy/galaxy-dist
-umask = 022
-autostart = true
-autorestart = true
-startsecs = 20
-user = galaxy
-environment = PATH=/home/galaxy/galaxy-dist/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin, PYTHONHOME=/home/galaxy/galaxy-dist/.venv
-numprocs = 1
-stopsignal = INT
-startretries = 15</p>
-<p>[program:handler]
-command = /home/galaxy/galaxy-dist/.venv/bin/python ./lib/galaxy/main.py -c ./config/galaxy.ini &#8211;server-name=handler%(process_num)s &#8211;log-file=/home/galaxy/galaxy-dist/handler%(process_num)s.log
-directory = /home/galaxy/galaxy-dist
-process_name = handler%(process_num)s
-numprocs = 2
-unmask = 022
-autostart = true
-autorestart = true
-startsecs = 20
-user = galaxy
-environment = PYTHONHOME=/home/galaxy/galaxy-dist/.venv
-;PYTHON_EGG_CACHE = /home/galaxy/galaxy-dist/.python-eggs, DRMAA_LIBRARY_PATH=/usr/lib/gridengine-drmaa/lib/libdrmaa.so.1.0, SGE_ROOT=/var/lib/gridengine</p>
-<p>[group:galaxy]
-programs = handler, galaxy_uwsgi</p>
-<p># Start the program
-$ supervisorctl start galaxy:*
-# Check status
-$ supervisorctl status
-# Log file
-$ tail -f /tmp/supervisord.log</p>
-</div>
-<div class="section" id="proxy-uwsgi-with-nginx">
-<h1>1.3.9. Proxy uWSGI with nginx<a class="headerlink" href="#proxy-uwsgi-with-nginx" title="Permalink to this headline">¶</a></h1>
-<p># add server block below in /etc/nginx/nginx.conf and comment
-#include /etc/nginx/sites-enabled/<a href="#id5"><span class="problematic" id="id6">*</span></a>;
-server {</p>
-<blockquote>
-<div><p>listen 80;
-root /var/www/html;
-# maximum file upload size
-client_max_body_size 10G;
-uwsgi_read_timeout 180;
-location /gonramp {</p>
-<blockquote>
-<div>include uwsgi_params;
-uwsgi_pass 192.168.56.11:4001;
-uwsgi_param UWSGI_SCHEME $scheme;</div></blockquote>
-<p>}
-# directly serve static content in nginx
-location /gonramp/static {</p>
-<blockquote>
-<div>alias /home/galaxy/galaxy-dist/static;
-expires 24h;</div></blockquote>
-<p>}
-location /gonramp/static/style {</p>
-<blockquote>
-<div>alias /home/galaxy/galaxy-dist/static/style/blue;
-expires 24h;</div></blockquote>
-<p>}
-location /gonramp/static/scripts {</p>
-<blockquote>
-<div>alias /home/galaxy/galaxy-dist/static/scripts;
-expires 24h;</div></blockquote>
-<p>}
-location /gonramp/favicon.ico {</p>
-<blockquote>
-<div>alias /home/galaxy/galaxy-dist/static/favicon.ico;
-expires 24h;</div></blockquote>
-<p>}
-location /gonramp/robots.txt {</p>
-<blockquote>
-<div>alias /home/galaxy/galaxy-dist/static/robots.txt;
-expires 24h;</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-<p># Restart nginx
-$ server restart nginx</p>
-</div>
-<div class="section" id="access-to-gonramp">
-<h1>1.3.10. Access to gonramp<a class="headerlink" href="#access-to-gonramp" title="Permalink to this headline">¶</a></h1>
-<p>$ supervisorctl start galaxy:*
-#Goto http://192.168.56.11/gonramp</p>
 </div>
 
 
@@ -773,7 +797,7 @@ $ server restart nginx</p>
 <li class="toctree-l1 current"><a class="reference internal" href="../installation.html">1. Installation of G-OnRamp</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#g-onramp-virtual-machine">1.1. G-OnRamp virtual machine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#create-g-onramp-virtual-machine">1.2. Create G-OnRamp virtual machine</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../installation.html#id1">1.3. Create G-OnRamp virtual machine</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../installation.html#create-g-onramp-virtual-machine-in-production-environment">1.3. Create G-OnRamp virtual machine in production environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#g-onramp-website">1.4. G-OnRamp website</a></li>
 </ul>
 </li>
