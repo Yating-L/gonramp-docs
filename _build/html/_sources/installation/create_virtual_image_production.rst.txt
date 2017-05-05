@@ -331,7 +331,7 @@ To use logrotate to rotate Galaxy log files, add a new file named "galaxy" to /e
 
 FTP server 
 **********
-.. _reference: https://galaxyproject.org/admin/config/upload-via-ftp/
+`Reference Enabling upload to Galaxy via FTP <https://galaxyproject.org/admin/config/upload-via-ftp/>_`
 
 in the config file, galaxy.ini, set::
 
@@ -361,7 +361,7 @@ in the config file, galaxy.ini, set::
 
 set up FTP server
 #################
-`FTP reference <https://kyup.com/tutorials/install-setup-ftp-server-proftpd/>`_
+`FTP server <https://kyup.com/tutorials/install-setup-ftp-server-proftpd/>`_
 
 Install ProFTPD::
 
@@ -460,6 +460,7 @@ When we are ready with the configuration we can start up the ProFTPD server::
 Scaling and Load Balancing
 **************************
 `reference1 <https://galaxyproject.org/admin/config/performance/scaling/>`_
+
 `reference2 <https://galaxyproject.org/events/bio-it-world2014/w14/>`_
 
 Enable multiple cores in the virtual environment
@@ -536,6 +537,7 @@ In galaxy.ini, define one or more additional [server:...] sections::
 Configure job_conf.xml 
 ######################
 `Configure job reference <https://galaxyproject.org/admin/config/jobs/>`_
+
 Uncomment in galaxy.ini::
 
   job_config_file = config/job_conf.xml
@@ -690,8 +692,14 @@ Access to gonramp
 #################
 
 Start then access through browser::
-
-  $ supervisorctl start galaxy:*
+  
+  $ supervisord
+  # Check status
+  $ supervisorctl status 
+  # Restart after changing configuration
+  $ supervisorctl restart galaxy:*  
+  # Stop Galaxy
+  $ supervisorctl stop galaxy:* 
   Goto http://192.168.56.11/gonramp
 
 
@@ -720,11 +728,12 @@ In galaxy.ini, uncomment and edit the following conda configuration::
   conda_ensure_channels = conda-forge,r,bioconda,iuc
   conda_auto_install = True
   conda_auto_init = True
-  
-Connect your Galaxy to the test tool shed
-#########################################
 
-Galaxy is connected to the Main Tool Shed by default. Since some tools in G-OnRamp workflow are in the Test Tool Shed, you need to connect to the Test Tool Shed by modifying the “tool_sheds_conf.xml” in config folder::
+..  
+  Connect your Galaxy to the test tool shed
+  #########################################
+
+  Galaxy is connected to the Main Tool Shed by default. Since some tools in G-OnRamp workflow are in the Test Tool Shed, you need to connect to the Test Tool Shed by modifying the “tool_sheds_conf.xml” in config folder::
 
   # Copy the “tool_sheds_conf.xml.sample” and rename it to “tool_sheds_conf.xml”
   $ cd /home/galaxy/config
@@ -732,7 +741,7 @@ Galaxy is connected to the Main Tool Shed by default. Since some tools in G-OnRa
   # Open the file 
   $ vim tool_sheds_conf.xml
 
-Uncomment the lines for the Test Tool Shed::
+  Uncomment the lines for the Test Tool Shed::
   
   <?xml version="1.0"?>
   <tool_sheds>
@@ -742,29 +751,31 @@ Uncomment the lines for the Test Tool Shed::
   -->
   </tool_sheds>
   
-To::
+  To::
 
   <?xml version="1.0"?>
   <tool_sheds>
     <tool_shed name="Galaxy Main Tool Shed" url="https://toolshed.g2.bx.psu.edu/"/>
     <tool_shed name="Galaxy Test Tool Shed" url="https://testtoolshed.g2.bx.psu.edu/"/> 
   </tool_sheds>
-  
-Add necessary datatypes
-#######################
 
-Copy the “datatypes_conf.xml.sample” and rename it to “datatypes_conf.xml”.
-Add the line below in between <registration></registration>::
+..  
+    Add necessary datatypes
+    #######################
+
+    Copy the “datatypes_conf.xml.sample” and rename it to “datatypes_conf.xml”.
+    Add the line below in between <registration></registration>::
 
   <datatype extension="psl" subclass="True" type="galaxy.datatypes.tabular:Tabular" />
 
-Other files should be ready (copy from .sample)
-################################################
-::
+.. 
+  Other files should be ready (copy from .sample)
+  ################################################
+  ::
 
   $ cp dependency_resolvers_conf.xml.sample dependency_resolvers_conf.xml
   
-Restart the server after you modified the configuration files. You can hit Ctrl-c to stop the server and then start again.
+  Restart the server after you modified the configuration files. You can hit Ctrl-c to stop the server and then start again.
 
 7. Install G-OnRamp tools
 *************************
@@ -775,16 +786,16 @@ Click on Galaxy Main Tool Shed to install
 #########################################
 
 - ncbi_blast_plus (by devteam)
-- Augustus 
-- HISAT2
-- StringTie 
-- blastXmlToPsl 
-- TrfBig 
+- augustus 
+- hisat2
+- stringtie 
+- blastXmlToPsl (by yating-l)
+- trfbig (by yating-l)
 - pslToBed 
 - bamtobigwig (by yating-l)
 - hubarchivecreator 
-- multi_fasta_glimmer_hmm
-- snap
+- multi_fasta_glimmer_hmm (by yating-l)
+- snap 
 - psltobigpsl (by yating-l)
 - jbrowsearchivecreator
 - gbtofasta
@@ -806,11 +817,7 @@ Make a Dependencies folder in "/home/galaxy" and download Glimmer3 inside the fo
   $ cd ~/Dependencies
   $ wget ftp://ccb.jhu.edu/pub/software/glimmerhmm/GlimmerHMM-3.0.4.tar.gz
 
-Rename glimmerhmm executable file (glimmerhmm_linux_x86_64) to glimmerhmm and then add glimmerhmm to the path (in .bashrc).
-
-You also need to use a trained organism by adding them as reference data in Galaxy:
-
-Add the glimmer_hmm_trained_dir data table to tool_data_table_conf.xml in $GALAXY_ROOT/config/::
+You need to use a trained organism by adding them as reference data in Galaxy. Add the glimmer_hmm_trained_dir data table to tool_data_table_conf.xml in $GALAXY_ROOT/config/::
 
   <!-- glimmer_hmm trained_dir -->
   <table name="glimmer_hmm_trained_dir" comment_char="#">
@@ -818,28 +825,41 @@ Add the glimmer_hmm_trained_dir data table to tool_data_table_conf.xml in $GALAX
     <file path="tool-data/glimmer_hmm.loc" />
   </table> 
   
-  
+Configure the glimmer_hmm.loc file referencing your trained organism, in tool-data. Uncomment the species and add the path to trained_dir, for example::
+    
+    #TAB separated
+    human   Human   /home/galaxy/Dependencies/GlimmerHMM/trained_dir/human
+    celegans        Celegan /home/galaxy/Dependencies/GlimmerHMM/trained_dir/celegans
+    arabidopsis     Arabidopsis     /home/galaxy/Dependencies/GlimmerHMM/trained_dir/arabidopsis
+    rice    Rice    /home/galaxy/Dependencies/GlimmerHMM/trained_dir/rice
+    zebrafish       Zebrafish       /home/galaxy/Dependencies/GlimmerHMM/trained_dir/zebrafish
 
-Add the glimmer_hmm.loc file referencing your trained organism, in tool-data. Uncomment the species and add the path to trained_dir. 
+2. jbrowsearchivecreator
 
-2. TrfBig
+Install JBrowse-1.12.1 at /var/www/html::
 
-Because trf executable file is not renamed to trf successfully, so it needs to be renamed manually.
+    $ cd /var/www/html
+    $ wget --trust-server-names http://jbrowse.org/wordpress/wp-content/plugins/download-monitor/download.php?id=105
+    $ sudo apt-get install unzip
+    $ sudo unzip JBrowse-1.12.1.zip 
+    $ cd JBrowse-1.12.1
+    $ sudo ./setup.sh
+    # add a subdir to store hub data
+    $ sudo mkdir data
+    $ sudo chown -R galaxy:galaxy data
+
+Add G-OnRamp plugins::
+
+    $ cd JBrowse-1.12.1/plugins
+    $ sudo git clone https://github.com/Yating-L/JBrowse_plugins.git G-OnRamp_plugin
+
+Add a plugins configuration variable in your jbrowse_conf.json file in the top-level JBrowse directory, and add an entry telling JBrowse where the plugin is. Example::
+
+    {
+     "plugins": [ 'G-OnRamp_plugin' ]
+
+    }
  
-Go to installation path of trf::
-
-  $ cd /home/galaxy/galaxy/database/dependencies/trf/4.07b/rmarenco/trfbig/e45bd0ffc1a4/bin
-  $ mv trf407b.linux64 trf
-  $ chmod 755 trf
-
-3. Bam to Bigwig
-
-libstdc++.so.6: version 'GLIBCXX_3.4.20' not found, maybe because it is not using the right libstdc++.so.6. Delete the installed libstdc++.so.6 in the tool dependencies, so that the tool can use the system version of libstdc++.so.6::
-
-  $ cd /home/galaxy/galaxy/database/dependencies/ucsc_tools/312/iuc/package_ucsc_tools_312/2d6bafd63401/lib/
-  $ rm libstdc++.so.6
-
-
 
 
 
